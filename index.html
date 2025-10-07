@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="UniMedVL: A unified medical foundation model enabling both understanding and generation capabilities within a single architecture">
+  <meta name="keywords" content="UniMedVL, Medical AI, Vision-Language, Foundation Model, Medical Imaging, VQA">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UniMedVL: Unified Medical Vision-Language Model</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="#overview">Overview</a>
+      <a class="navbar-item" href="#methodology">Methodology</a>
+      <a class="navbar-item" href="#results">Results</a>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">UniMedVL: A Unified Framework for Medical Vision-Language Understanding and Generation</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Anonymous Authors</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Under Review</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Placeholder Links -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark" style="opacity: 0.5; pointer-events: none;">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper (Coming Soon)</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark" style="opacity: 0.5; pointer-events: none;">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark" style="opacity: 0.5; pointer-events: none;">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Dataset (Coming Soon)</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/teaser.png" alt="UniMedVL Overview" style="width: 100%; border-radius: 10px;" loading="lazy">
+      <h2 class="subtitle has-text-centered" style="margin-top: 1.5rem;">
+        <strong>UniMedVL</strong>: A unified medical foundation model enabling both understanding and generation capabilities within a single architecture
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- Overview Section -->
+<section class="section" id="overview">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            <strong>UniMedVL</strong> is the first unified medical foundation model that achieves
+            <strong>both understanding and generation</strong> capabilities within a single architecture,
+            enabling seamless multimodal processing across diverse medical imaging tasks.
+          </p>
+
+          <h3 class="title is-4" style="margin-top: 2rem;">Key Features</h3>
+          <ul style="text-align: left;">
+            <li><strong>🔬 Unified Architecture</strong>: Single model handles understanding (VQA, report generation) and generation (image synthesis, cross-modal translation)</li>
+            <li><strong>📊 Large-Scale Dataset</strong>: UniMed-5M dataset with 5+ million medical samples across 9 imaging modalities</li>
+            <li><strong>🎯 SOTA Performance</strong>: 75.40% accuracy on SLAKE, 53.46% on PathVQA, competitive generation quality (96.29 average gFID)</li>
+            <li><strong>🏥 Clinical Workflow</strong>: Follows Observation-Knowledge-Analysis (OKA) paradigm mirroring real clinician learning</li>
+            <li><strong>⚡ Progressive Training</strong>: Three-stage curriculum learning for systematic cross-modal knowledge fusion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Methodology Section -->
+<section class="section" id="methodology">
+  <div class="container is-max-desktop">
+
+    <!-- OKA Framework -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">OKA Framework: Observation-Knowledge-Analysis</h2>
+        <div class="content has-text-justified">
+          <p>
+            UniMedVL follows a clinical workflow-guided three-level framework that mirrors
+            how physicians process medical information:
+          </p>
+        </div>
+
+        <div class="content has-text-left" style="max-width: 800px; margin: 2rem auto;">
+          <ol>
+            <li><strong>Observation Level</strong>: UniMed-5M Dataset with quality control and expert validation</li>
+            <li><strong>Knowledge Level</strong>: Progressive curriculum learning and cross-modal knowledge fusion</li>
+            <li><strong>Analysis Level</strong>: Unified architecture producing multimodal outputs (reports, images, annotations)</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <hr style="margin: 3rem 0;">
+
+    <!-- Architecture -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Data Pipeline and Architecture</h2>
+        <img src="./static/images/overview_ver3.png" alt="Architecture Overview" style="width: 100%; border-radius: 10px;" loading="lazy">
+        <p style="margin-top: 1rem;"><em>Comprehensive data processing pipeline and model architecture overview</em></p>
+      </div>
+    </div>
+
+    <hr style="margin: 3rem 0;">
+
+    <!-- Training Strategy -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">Training Strategy</h2>
+        <div class="content has-text-justified">
+          <p><strong>Three-Stage Progressive Curriculum Learning:</strong></p>
+
+          <div class="columns">
+            <div class="column">
+              <h4>🔧 Stage 1 - Foundation Training</h4>
+              <ul>
+                <li>85K steps</li>
+                <li>Basic medical pattern recognition</li>
+                <li>Visual-language alignment</li>
+                <li>Data ratio: 75% I2T, 25% T2I</li>
+              </ul>
+            </div>
+
+            <div class="column">
+              <h4>📚 Stage 2 - Instruction Tuning</h4>
+              <ul>
+                <li>120K steps</li>
+                <li>Cross-modal understanding enhancement</li>
+                <li>Medical expertise development</li>
+                <li>Data ratio: 40% I2T, 45% T2I, 10% Interleaved</li>
+              </ul>
+            </div>
+
+            <div class="column">
+              <h4>🚀 Stage 3 - Unified Training</h4>
+              <ul>
+                <li>70K steps</li>
+                <li>Advanced multimodal synthesis</li>
+                <li>Interleaved task mastery</li>
+                <li>Data ratio: 37% I2T, 35% T2I, 25% Interleaved</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Results Section -->
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2 has-text-centered">Experimental Results</h2>
+
+    <!-- Performance Comparison -->
+    <div style="margin: 3rem 0;">
+      <h3 class="title is-3 has-text-centered">Performance Visualization</h3>
+      <img src="./static/images/topline_performance.png" alt="Performance Comparison" style="width: 100%; border-radius: 10px;" loading="lazy">
+      <p class="has-text-centered" style="margin-top: 1rem;"><em>Comprehensive performance comparison across training stages and modalities</em></p>
+    </div>
+
+    <!-- Multimodal Tasks -->
+    <div style="margin: 3rem 0;">
+      <h3 class="title is-3 has-text-centered">Multimodal Tasks Demonstration</h3>
+      <img src="./static/images/fig_results_ver2.png" alt="Multimodal Results" style="width: 100%; border-radius: 10px;" loading="lazy">
+      <p class="has-text-centered" style="margin-top: 1rem;"><em>Comprehensive visualization of UniMedVL's multimodal capabilities</em></p>
+    </div>
+
+    <!-- VQA and Report Generation -->
+    <div class="columns" style="margin: 3rem 0;">
+      <div class="column">
+        <h3 class="title is-4">💬 Medical Visual Question Answering</h3>
+        <img src="./static/images/visual_question_answering.png" alt="VQA Examples" style="width: 100%; border-radius: 10px;" loading="lazy">
+      </div>
+      <div class="column">
+        <h3 class="title is-4">📄 Medical Report Generation</h3>
+        <img src="./static/images/reportgeneration.png" alt="Report Generation" style="width: 100%; border-radius: 10px;" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Text-to-Image -->
+    <div style="margin: 3rem 0;">
+      <h3 class="title is-3 has-text-centered">🎨 Text-to-Medical-Image Generation</h3>
+      <div class="columns">
+        <div class="column">
+          <img src="./static/images/text2img1.png" alt="T2I Example 1" style="width: 100%; border-radius: 10px;" loading="lazy">
+        </div>
+        <div class="column">
+          <img src="./static/images/text2img2.png" alt="T2I Example 2" style="width: 100%; border-radius: 10px;" loading="lazy">
+        </div>
+      </div>
+      <p class="has-text-centered" style="margin-top: 1rem;"><em>High-quality text-to-medical-image generation across modalities</em></p>
+    </div>
+
+    <!-- VAE Reconstruction -->
+    <div style="margin: 3rem 0;">
+      <h3 class="title is-3 has-text-centered">🎨 VAE Reconstruction Quality</h3>
+      <img src="./static/images/vae_demo_ver1.png" alt="VAE Reconstruction" style="width: 100%; border-radius: 10px;" loading="lazy">
+      <p class="has-text-centered" style="margin-top: 1rem;"><em>Qualitative comparison across diverse medical imaging modalities</em></p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <!-- Acknowledgments -->
+          <h3 class="title is-4 has-text-centered">🙏 Acknowledgments</h3>
+          <p class="has-text-centered">
+            We sincerely thank the following projects for their invaluable open-source contributions:
+            <a href="https://github.com/ByteDance-Seed/Bagel">Bagel</a>,
+            <a href="https://github.com/DCDmllm/HealthGPT">HealthGPT</a>,
+            <a href="https://github.com/End2End-Diffusion/REPA-E">REPA-E</a>, and
+            <a href="https://github.com/open-compass/VLMEvalKit">VLMEvalKit</a>.
+          </p>
+
+          <hr style="margin: 2rem 0;">
+
+          <!-- License and Template Credit -->
+          <p class="has-text-centered">
+            This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p class="has-text-centered">
+            Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+            Thank you for the excellent design!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

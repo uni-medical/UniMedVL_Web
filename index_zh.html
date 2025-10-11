@@ -38,18 +38,18 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="#overview">Overview</a>
-      <a class="navbar-item" href="#methodology">Methodology</a>
-      <a class="navbar-item" href="#results">Results</a>
+      <a class="navbar-item" href="#overview">概览</a>
+      <a class="navbar-item" href="#methodology">方法</a>
+      <a class="navbar-item" href="#results">结果</a>
     </div>
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a href="index_zh.html" class="button is-light">
+          <a href="index.html" class="button is-light">
             <span class="icon">
               <i class="fas fa-language"></i>
             </span>
-            <span>中文</span>
+            <span>English</span>
           </a>
         </div>
       </div>
@@ -135,7 +135,7 @@
     <div class="hero-body">
       <img src="./static/images/teaser.png" alt="UniMedVL Overview" style="width: 100%; border-radius: 10px;" loading="lazy">
       <h2 class="subtitle has-text-centered" style="margin-top: 1.5rem;">
-        <strong>UniMedVL</strong>: The first unified medical foundation model enabling both understanding and generation capabilities within a single architecture
+        <strong>UniMedVL</strong>: 首个在单一架构内同时实现医学图像理解与生成的统一基础模型
       </h2>
     </div>
   </div>
@@ -149,13 +149,13 @@
         <h2 class="title is-3 has-text-centered">Abstract</h2>
         <div class="content has-text-justified" style="font-size: 1.05rem; line-height: 1.8;">
           <p>
-            Clinical diagnosis demands models that can process multimodal medical inputs (images, patient histories, lab results) and generate diverse outputs including both textual reports and visual content (annotations, segmentation masks, and images). Despite this need, existing medical AI systems disrupt this unified process: medical image understanding models interpret images but cannot generate visual outputs, while medical image generation models synthesize images but cannot provide textual explanations. This leads to gaps in data representation, feature integration, and task-level multimodal capabilities.
+            临床诊断需要能够处理多模态医学输入（图像、病史、实验室结果）并生成多样化输出（文本报告和视觉内容如标注、分割掩码和图像）的模型。然而，现有医学AI系统割裂了这一统一过程：医学图像理解模型能解释图像但无法生成视觉输出，而医学图像生成模型能合成图像但无法提供文本解释。这导致了数据表示、特征集成和任务级多模态能力的缺失。
           </p>
           <p>
-            To this end, we propose a multi-level framework that mirrors clinical diagnosis through the <strong>Observation-Knowledge-Analysis (OKA) paradigm</strong>. Specifically, at the observation level, we construct UniMed-5M, a dataset comprising over <strong>5.6 million samples</strong> that reformat diverse unimodal data into multimodal pairs for foundational observation. At the knowledge level, we propose <strong>Progressive Curriculum Learning</strong> that systematically introduces medical multimodal knowledge. At the analysis level, we introduce <strong>UniMedVL</strong>—the first medical unified multimodal model for the simultaneous analysis of image understanding and generation tasks <strong>within a single architecture</strong>.
+            为此，我们提出了一个多层次框架，通过<strong>观察-知识-分析（OKA）范式</strong>模拟临床诊断流程。具体来说：在观察层面，我们构建了包含超过<strong>560万样本</strong>的UniMed-5M数据集，将多样化的单模态数据重新格式化为多模态配对数据；在知识层面，我们提出了<strong>渐进式课程学习</strong>，系统性地引入医学多模态知识；在分析层面，我们推出了<strong>UniMedVL</strong>——首个在<strong>单一架构内</strong>同时完成图像理解和生成任务的医学统一多模态模型。
           </p>
           <p>
-            <strong>UniMedVL achieves superior performance on five medical image understanding benchmarks, while matching specialized models in generation quality across eight medical imaging modalities</strong>. Crucially, our unified architecture enables bidirectional knowledge sharing—generation tasks enhance visual understanding features, demonstrating that integrating traditionally separate capabilities within a single medical framework unlocks improvements across diverse clinical scenarios.
+            <strong>UniMedVL在5个医学图像理解基准上取得卓越性能，同时在8种医学成像模态的生成质量上媲美专用模型</strong>。更重要的是，我们的统一架构实现了双向知识共享——生成任务增强了视觉理解特征，证明了在单一医学框架内整合传统上分离的能力能够解锁跨多样化临床场景的改进。
           </p>
         </div>
       </div>
@@ -168,87 +168,87 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Core Innovation</h2>
+        <h2 class="title is-3">核心创新</h2>
 
         <!-- Clinical Scenario -->
         <div class="notification is-info is-light" style="text-align: left; margin: 2rem 0;">
-          <h4 class="title is-5">🏥 Clinical Diagnosis: A Multimodal Process</h4>
+          <h4 class="title is-5">🏥 临床诊断：一个多模态过程</h4>
           <p style="margin-bottom: 1rem;">
-            Consider a radiologist examining suspected lung pathology: they systematically process <strong>chest X-rays</strong> (visual), <strong>prior CT scans</strong> (cross-modal comparison), and <strong>patient history</strong> (textual) to generate multiple complementary outputs:
+            考虑一位放射科医生检查疑似肺部病变的场景：他们系统性地处理<strong>胸部X光片</strong>（视觉）、<strong>既往CT扫描</strong>（跨模态比较）和<strong>患者病史</strong>（文本），以生成多种互补的输出：
           </p>
           <ul style="margin-left: 2rem;">
-            <li><strong>Detailed reports</strong> describing findings and reasoning</li>
-            <li><strong>Visual annotations</strong> highlighting specific regions of concern</li>
-            <li><strong>Comparative visualizations</strong> for treatment planning and surgical guidance</li>
+            <li><strong>详细报告</strong>：描述发现和推理过程</li>
+            <li><strong>视觉标注</strong>：突出显示关注的特定区域</li>
+            <li><strong>对比可视化</strong>：用于治疗规划和手术指导</li>
           </ul>
           <p style="margin-top: 1rem;">
-            This exemplifies how clinical diagnosis requires <strong>unified processing of multimodal inputs to generate diverse multimodal outputs</strong>, where neither textual reports alone (lacking spatial localization) nor visual annotations alone (lacking reasoning context) suffice.
+            这体现了临床诊断需要<strong>统一处理多模态输入以生成多样化的多模态输出</strong>，单独的文本报告（缺乏空间定位）或单独的视觉标注（缺乏推理上下文）都不足够。
           </p>
         </div>
 
         <!-- Problem Statement -->
         <div class="notification is-warning is-light" style="text-align: left; margin: 2rem 0;">
-          <h4 class="title is-5">🔴 Three-Level Fragmentation in Existing Medical AI</h4>
+          <h4 class="title is-5">🔴 现有医学AI的三层碎片化问题</h4>
           <p style="margin-bottom: 1rem;">
-            Despite multimodal fusion demonstrating substantial improvements in clinical decision-making, current medical AI remains fragmented at three critical levels:
+            尽管多模态融合已被证明能显著改善临床决策，但当前医学AI在三个关键层面仍然存在碎片化：
           </p>
 
           <div style="margin-left: 1.5rem; margin-bottom: 1rem;">
-            <p><strong>① Data Level:</strong> Medical datasets remain predominantly single-modal despite clear evidence that multimodal integration substantially improves diagnostic accuracy. Most datasets lack the paired multimodal structure needed for unified training.</p>
+            <p><strong>① 数据层面：</strong>医学数据集仍然以单模态为主，尽管有明确证据表明多模态整合能显著提高诊断准确性。大多数数据集缺乏统一训练所需的成对多模态结构。</p>
           </div>
 
           <div style="margin-left: 1.5rem; margin-bottom: 1rem;">
-            <p><strong>② Feature Level:</strong> Current approaches lack systematic progressive training strategies for deep cross-modal relationships. Most methods simply concatenate features rather than progressively building from basic pattern recognition to sophisticated multimodal reasoning.</p>
+            <p><strong>② 特征层面：</strong>当前方法缺乏系统化的渐进式训练策略来学习深层跨模态关系。大多数方法只是简单拼接特征，而不是从基础模式识别逐步构建到复杂的多模态推理。</p>
           </div>
 
           <div style="margin-left: 1.5rem; margin-bottom: 1rem;">
-            <p><strong>③ Task Level:</strong> While general-domain models have made progress in unified architectures, the medical domain still lacks truly unified models. For instance, <strong>HealthGPT</strong> demonstrates both understanding and generation capabilities but requires <strong>reloading different model checkpoints</strong> to switch between task types—a limitation that prevents seamless multi-task operation in clinical workflows.</p>
+            <p><strong>③ 任务层面：</strong>虽然通用领域模型在统一架构方面取得了进展，但医学领域仍然缺乏真正统一的模型。例如，<strong>HealthGPT</strong>虽然展示了理解和生成能力，但需要<strong>重新加载不同的模型checkpoint</strong>才能切换任务类型——这一限制阻碍了临床工作流中的无缝多任务操作。</p>
           </div>
 
           <p style="margin-top: 1rem; padding: 0.75rem; background-color: #fff3cd; border-radius: 5px;">
-            <strong>📊 Performance Gap:</strong> Current medical AI systems achieve less than <strong>60% accuracy</strong> compared to over <strong>90%</strong> for human experts on diagnostic challenges, highlighting the urgent need for unified approaches.
+            <strong>📊 性能差距：</strong>当前医学AI系统在诊断挑战中的准确率不到<strong>60%</strong>，而人类专家的准确率超过<strong>90%</strong>，这突显了统一方法的迫切需求。
           </p>
         </div>
 
         <!-- Solution -->
         <div class="notification is-success is-light" style="text-align: left; margin: 2rem 0;">
-          <h4 class="title is-5">✅ UniMedVL: Truly Unified Architecture</h4>
+          <h4 class="title is-5">✅ UniMedVL: 真正的统一架构</h4>
           <p>
-            <strong>UniMedVL is the first medical multimodal model achieving both understanding and generation within a single model checkpoint.</strong> Once loaded, it seamlessly handles:
+            <strong>UniMedVL是首个在单一模型checkpoint内同时实现理解与生成的医学多模态模型。</strong>一旦加载模型，即可无缝处理：
           </p>
           <ul>
-            <li>📖 <strong>Understanding Tasks</strong>: Medical VQA, image captioning, diagnostic report generation</li>
-            <li>🎨 <strong>Generation Tasks</strong>: Text-to-image synthesis, cross-modal translation (CT↔MRI), virtual staining</li>
-            <li>🔀 <strong>Interleaved Tasks</strong>: Counterfactual generation (simultaneous image + explanatory text), super-resolution, segmentation</li>
+            <li>📖 <strong>理解任务</strong>: 医学VQA、图像描述、诊断报告生成</li>
+            <li>🎨 <strong>生成任务</strong>: 文本到图像合成、跨模态转换（CT↔MRI）、虚拟染色</li>
+            <li>🔀 <strong>交织任务</strong>: 反事实生成（同时生成图像+解释文本）、超分辨率、分割</li>
           </ul>
           <p style="margin-top: 1rem;">
-            <strong>Key Advantage</strong>: No offline checkpoint switching—single model completes all tasks ✨
+            <strong>关键优势</strong>：无需离线切换checkpoint，单一模型即可完成所有任务 ✨
           </p>
         </div>
 
         <!-- Key Numbers -->
         <div class="content has-text-justified">
-          <h3 class="title is-4 has-text-centered" style="margin-top: 2rem;">Key Statistics</h3>
+          <h3 class="title is-4 has-text-centered" style="margin-top: 2rem;">核心数据</h3>
           <div class="columns" style="margin-top: 1.5rem;">
             <div class="column">
               <div class="box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center;">
                 <p class="title is-2" style="color: white; margin-bottom: 0.5rem;">5.6M+</p>
-                <p class="subtitle is-5" style="color: white;">Training Samples</p>
-                <p style="font-size: 0.9rem;">9 medical imaging modalities</p>
+                <p class="subtitle is-5" style="color: white;">训练样本</p>
+                <p style="font-size: 0.9rem;">9种医学成像模态</p>
               </div>
             </div>
             <div class="column">
               <div class="box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; text-align: center;">
                 <p class="title is-2" style="color: white; margin-bottom: 0.5rem;">75.4%</p>
-                <p class="subtitle is-5" style="color: white;">SLAKE Accuracy</p>
-                <p style="font-size: 0.9rem;">Medical image understanding SOTA</p>
+                <p class="subtitle is-5" style="color: white;">SLAKE准确率</p>
+                <p style="font-size: 0.9rem;">医学图像理解SOTA</p>
               </div>
             </div>
             <div class="column">
               <div class="box" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; text-align: center;">
                 <p class="title is-2" style="color: white; margin-bottom: 0.5rem;">96.29</p>
-                <p class="subtitle is-5" style="color: white;">Average gFID</p>
-                <p style="font-size: 0.9rem;">Matching specialized generation models</p>
+                <p class="subtitle is-5" style="color: white;">平均gFID</p>
+                <p style="font-size: 0.9rem;">媲美专用生成模型</p>
               </div>
             </div>
           </div>
@@ -266,18 +266,18 @@
     <!-- OKA Framework -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">OKA Framework: Observation-Knowledge-Analysis</h2>
+        <h2 class="title is-3">OKA框架：观察-知识-分析</h2>
         <div class="content has-text-justified">
           <p>
-            UniMedVL follows a clinical workflow-guided three-level framework that mirrors how physicians process medical information:
+            UniMedVL遵循临床工作流引导的三层次框架，模拟医生处理医学信息的过程：
           </p>
         </div>
 
         <div class="content has-text-left" style="max-width: 800px; margin: 2rem auto;">
           <ol>
-            <li><strong>Observation Level (Data)</strong>: Construct UniMed-5M dataset with quality control and expert validation</li>
-            <li><strong>Knowledge Level (Features)</strong>: Progressive curriculum learning and cross-modal knowledge fusion</li>
-            <li><strong>Analysis Level (Tasks)</strong>: Unified architecture producing multimodal outputs (reports, images, annotations)</li>
+            <li><strong>观察层（数据）</strong>：构建UniMed-5M数据集，包含质量控制和专家验证</li>
+            <li><strong>知识层（特征）</strong>：渐进式课程学习和跨模态知识融合</li>
+            <li><strong>分析层（任务）</strong>：统一架构生成多模态输出（报告、图像、标注）</li>
           </ol>
         </div>
       </div>
@@ -288,9 +288,9 @@
     <!-- Architecture -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Data Pipeline and Model Architecture</h2>
+        <h2 class="title is-3">数据流程与模型架构</h2>
         <img src="./static/images/overview_ver3.png" alt="Architecture Overview" style="width: 100%; border-radius: 10px;" loading="lazy">
-        <p style="margin-top: 1rem;"><em>Comprehensive data processing pipeline and model architecture overview</em></p>
+        <p style="margin-top: 1rem;"><em>完整的数据处理流程和模型架构概览</em></p>
       </div>
     </div>
 
@@ -299,38 +299,38 @@
     <!-- Training Strategy -->
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered">Progressive Training Strategy</h2>
+        <h2 class="title is-3 has-text-centered">渐进式训练策略</h2>
         <div class="content has-text-justified">
-          <p><strong>Three-Stage Progressive Curriculum Learning:</strong></p>
+          <p><strong>三阶段渐进式课程学习：</strong></p>
 
           <div class="columns">
             <div class="column">
-              <h4>🔧 Stage 1 - Foundation Training</h4>
+              <h4>🔧 阶段1 - 基础训练</h4>
               <ul>
-                <li>85K training steps</li>
-                <li>Basic medical pattern recognition</li>
-                <li>Visual-language alignment</li>
-                <li>Data ratio: 75% I2T, 25% T2I</li>
+                <li>85K训练步数</li>
+                <li>基础医学模式识别</li>
+                <li>视觉-语言对齐</li>
+                <li>数据比例: 75% I2T, 25% T2I</li>
               </ul>
             </div>
 
             <div class="column">
-              <h4>📚 Stage 2 - Instruction Tuning</h4>
+              <h4>📚 阶段2 - 指令微调</h4>
               <ul>
-                <li>120K training steps</li>
-                <li>Cross-modal understanding enhancement</li>
-                <li>Medical expertise development</li>
-                <li>Data ratio: 40% I2T, 45% T2I, 10% Interleaved</li>
+                <li>120K训练步数</li>
+                <li>跨模态理解增强</li>
+                <li>医学专业知识发展</li>
+                <li>数据比例: 40% I2T, 45% T2I, 10% 交织任务</li>
               </ul>
             </div>
 
             <div class="column">
-              <h4>🚀 Stage 3 - Unified Training</h4>
+              <h4>🚀 阶段3 - 统一训练</h4>
               <ul>
-                <li>70K training steps</li>
-                <li>Advanced multimodal synthesis</li>
-                <li>Interleaved task mastery</li>
-                <li>Data ratio: 37% I2T, 35% T2I, 25% Interleaved</li>
+                <li>70K训练步数</li>
+                <li>高级多模态合成</li>
+                <li>交织任务精通</li>
+                <li>数据比例: 37% I2T, 35% T2I, 25% 交织任务</li>
               </ul>
             </div>
           </div>
@@ -344,14 +344,14 @@
 <!-- Performance Highlights Section -->
 <section class="section" style="background-color: #f8f9fa;">
   <div class="container is-max-desktop">
-    <h2 class="title is-2 has-text-centered">Performance Highlights</h2>
+    <h2 class="title is-2 has-text-centered">性能亮点</h2>
     <p class="subtitle has-text-centered" style="margin-bottom: 3rem;">
-      Single model, comprehensive coverage of understanding, generation, and interleaved tasks
+      单一模型，全面覆盖理解、生成与交织任务
     </p>
 
     <!-- Understanding Performance -->
     <div style="margin: 3rem 0;">
-      <h3 class="title is-3 has-text-centered" style="color: #667eea;">📖 Medical Image Understanding</h3>
+      <h3 class="title is-3 has-text-centered" style="color: #667eea;">📖 医学图像理解</h3>
       <div class="columns is-multiline">
         <div class="column is-one-third">
           <div class="box" style="border-left: 4px solid #667eea;">
@@ -385,7 +385,7 @@
           <div class="box" style="border-left: 4px solid #667eea;">
             <p class="heading">GMAI-MMBench</p>
             <p class="title is-3">60.75%</p>
-            <p class="subtitle is-6">Comprehensive medical multimodal benchmark</p>
+            <p class="subtitle is-6">综合医学多模态评测</p>
           </div>
         </div>
       </div>
@@ -393,78 +393,78 @@
 
     <!-- Generation Performance -->
     <div style="margin: 3rem 0;">
-      <h3 class="title is-3 has-text-centered" style="color: #f5576c;">🎨 Medical Image Generation</h3>
+      <h3 class="title is-3 has-text-centered" style="color: #f5576c;">🎨 医学图像生成</h3>
       <div class="columns is-multiline">
         <div class="column is-one-quarter">
           <div class="box" style="border-left: 4px solid #f5576c;">
-            <p class="heading">Chest X-ray (CXR)</p>
+            <p class="heading">胸部X光 (CXR)</p>
             <p class="title is-4">73.04</p>
             <p class="subtitle is-6">gFID</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="box" style="border-left: 4px solid #f5576c;">
-            <p class="heading">Histopathology (HIS)</p>
+            <p class="heading">病理切片 (HIS)</p>
             <p class="title is-4">149.01</p>
             <p class="subtitle is-6">gFID</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="box" style="border-left: 4px solid #f5576c;">
-            <p class="heading">Fundus Photo (CFP)</p>
+            <p class="heading">眼底照片 (CFP)</p>
             <p class="title is-4">53.20</p>
             <p class="subtitle is-6">gFID</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="box" style="border-left: 4px solid #f5576c;">
-            <p class="heading">CT Scan</p>
+            <p class="heading">CT扫描</p>
             <p class="title is-4">73.04</p>
             <p class="subtitle is-6">gFID</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="box" style="border-left: 4px solid #f5576c;">
-            <p class="heading">MRI</p>
+            <p class="heading">MRI磁共振</p>
             <p class="title is-4">90.36</p>
             <p class="subtitle is-6">gFID</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="box" style="border-left: 4px solid #f5576c;">
-            <p class="heading">OCT</p>
+            <p class="heading">OCT光学相干</p>
             <p class="title is-4">99.27</p>
             <p class="subtitle is-6">gFID</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="box" style="border-left: 4px solid #f5576c;">
-            <p class="heading">Ultrasound</p>
+            <p class="heading">超声影像</p>
             <p class="title is-4">95.38</p>
             <p class="subtitle is-6">gFID</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="box" style="border-left: 4px solid #f5576c;">
-            <p class="heading">Endoscopy</p>
+            <p class="heading">内窥镜</p>
             <p class="title is-4">133.11</p>
             <p class="subtitle is-6">gFID</p>
           </div>
         </div>
       </div>
       <p class="has-text-centered" style="margin-top: 1rem;">
-        <span class="tag is-success is-medium">Average gFID: 96.29</span>
+        <span class="tag is-success is-medium">平均gFID: 96.29</span>
         <span class="tag is-info is-medium" style="margin-left: 1rem;">BioMedCLIP: 0.706</span>
       </p>
     </div>
 
     <!-- Interleaved Tasks Performance -->
     <div style="margin: 3rem 0;">
-      <h3 class="title is-3 has-text-centered" style="color: #00f2fe;">🔀 Interleaved Tasks (Understanding + Generation)</h3>
+      <h3 class="title is-3 has-text-centered" style="color: #00f2fe;">🔀 交织任务（理解+生成）</h3>
       <div class="columns">
         <div class="column">
           <div class="box" style="border-left: 4px solid #00f2fe;">
-            <p class="heading">Virtual Immunohistochemistry Staining</p>
+            <p class="heading">虚拟免疫组化染色</p>
             <p class="title is-3">20.27 / 0.456</p>
             <p class="subtitle is-6">PSNR / SSIM</p>
             <p style="color: #48c774; font-weight: bold;">vs. Pyramid Pix2pix: 21.16 / 0.477</p>
@@ -472,17 +472,17 @@
         </div>
         <div class="column">
           <div class="box" style="border-left: 4px solid #00f2fe;">
-            <p class="heading">MRI Super-Resolution (4×)</p>
+            <p class="heading">MRI超分辨率 (4×)</p>
             <p class="title is-3">27.29 / 0.890</p>
             <p class="subtitle is-6">PSNR / SSIM</p>
-            <p style="color: #48c774; font-weight: bold;">Approaching specialized model Restormer: 31.85 / 0.938</p>
+            <p style="color: #48c774; font-weight: bold;">接近专用模型 Restormer: 31.85 / 0.938</p>
           </div>
         </div>
         <div class="column">
           <div class="box" style="border-left: 4px solid #00f2fe;">
-            <p class="heading">Cross-Modal Synthesis (T2↔FLAIR)</p>
+            <p class="heading">跨模态合成 (T2↔FLAIR)</p>
             <p class="title is-3">25.07 / 0.882</p>
-            <p class="subtitle is-6">Average PSNR / SSIM</p>
+            <p class="subtitle is-6">平均 PSNR / SSIM</p>
             <p style="color: #48c774; font-weight: bold;">vs. pGAN: 24.55 / 0.879</p>
           </div>
         </div>
@@ -490,11 +490,11 @@
       <div class="columns">
         <div class="column is-half is-offset-one-quarter">
           <div class="box" style="border-left: 4px solid #00f2fe; background-color: #e8f9ff;">
-            <p class="heading">Counterfactual Generation (Image + Text Explanation)</p>
+            <p class="heading">反事实生成（图像+文本解释）</p>
             <p class="title is-4">gFID: 27.17 | AUROC: 0.797</p>
             <p class="subtitle is-6">BLEU-3: 0.2641 | METEOR: 0.4486 | ROUGE-L: 0.4649</p>
             <p style="color: #3273dc; font-weight: bold; margin-top: 0.5rem;">
-              Surpassing specialized model ProgEmu while generating both high-quality images and explanatory text
+              超越专用模型ProgEmu，同时生成高质量图像与解释文本
             </p>
           </div>
         </div>
@@ -503,28 +503,28 @@
 
     <!-- Unified Architecture Advantage -->
     <div class="notification is-primary is-light" style="margin-top: 3rem;">
-      <h4 class="title is-4 has-text-centered">🌟 Clinical Advantages of Unified Architecture</h4>
+      <h4 class="title is-4 has-text-centered">🌟 统一架构的临床优势</h4>
       <div class="columns">
         <div class="column">
           <p style="text-align: center;">
             <span class="icon is-large" style="color: #3273dc;"><i class="fas fa-check-circle fa-2x"></i></span>
           </p>
-          <p style="text-align: center; font-weight: bold;">Seamless Task Switching</p>
-          <p style="text-align: center; font-size: 0.9rem;">Complete all tasks<br>without switching checkpoints</p>
+          <p style="text-align: center; font-weight: bold;">无缝任务切换</p>
+          <p style="text-align: center; font-size: 0.9rem;">无需切换checkpoint<br>即可完成所有任务</p>
         </div>
         <div class="column">
           <p style="text-align: center;">
             <span class="icon is-large" style="color: #3273dc;"><i class="fas fa-sync-alt fa-2x"></i></span>
           </p>
-          <p style="text-align: center; font-weight: bold;">Bidirectional Knowledge Sharing</p>
-          <p style="text-align: center; font-size: 0.9rem;">Generation tasks enhance understanding<br>Understanding tasks optimize generation</p>
+          <p style="text-align: center; font-weight: bold;">双向知识共享</p>
+          <p style="text-align: center; font-size: 0.9rem;">生成任务增强理解<br>理解任务优化生成</p>
         </div>
         <div class="column">
           <p style="text-align: center;">
             <span class="icon is-large" style="color: #3273dc;"><i class="fas fa-hospital fa-2x"></i></span>
           </p>
-          <p style="text-align: center; font-weight: bold;">Clinical Workflow Integration</p>
-          <p style="text-align: center; font-size: 0.9rem;">Aligning with clinical practice<br>Observation-Knowledge-Analysis workflow</p>
+          <p style="text-align: center; font-weight: bold;">临床工作流整合</p>
+          <p style="text-align: center; font-size: 0.9rem;">符合医生实际诊断<br>观察-知识-分析流程</p>
         </div>
       </div>
     </div>
@@ -535,39 +535,39 @@
 <!-- Results Section -->
 <section class="section" id="results">
   <div class="container is-max-desktop">
-    <h2 class="title is-2 has-text-centered">Experimental Results Visualization</h2>
+    <h2 class="title is-2 has-text-centered">实验结果可视化</h2>
 
     <!-- Performance Comparison -->
     <div style="margin: 3rem 0;">
-      <h3 class="title is-3 has-text-centered">Performance Visualization Comparison</h3>
+      <h3 class="title is-3 has-text-centered">性能可视化对比</h3>
       <img src="./static/images/topline_performance.png" alt="Performance Comparison" style="width: 100%; border-radius: 10px;" loading="lazy">
-      <p class="has-text-centered" style="margin-top: 1rem;"><em>Comprehensive performance comparison across different training stages and modalities</em></p>
+      <p class="has-text-centered" style="margin-top: 1rem;"><em>不同训练阶段和模态下的全面性能对比</em></p>
     </div>
 
     <!-- Multimodal Tasks -->
     <div style="margin: 3rem 0;">
-      <h3 class="title is-3 has-text-centered">Multimodal Task Demonstrations</h3>
+      <h3 class="title is-3 has-text-centered">多模态任务演示</h3>
       <img src="./static/images/fig_results_ver2.png" alt="Multimodal Results" style="width: 100%; border-radius: 10px;" loading="lazy">
-      <p class="has-text-centered" style="margin-top: 1rem;"><em>Comprehensive visualization of UniMedVL's multimodal capabilities</em></p>
+      <p class="has-text-centered" style="margin-top: 1rem;"><em>UniMedVL多模态能力的全面可视化展示</em></p>
     </div>
 
     <!-- VQA and Report Generation -->
     <div class="columns" style="margin: 3rem 0;">
       <div class="column">
-        <h3 class="title is-4">💬 Medical Visual Question Answering</h3>
+        <h3 class="title is-4">💬 医学视觉问答</h3>
         <img src="./static/images/visual_question_answering.png" alt="VQA Examples" style="width: 100%; border-radius: 10px;" loading="lazy">
-        <p class="has-text-centered" style="margin-top: 0.5rem; color: #667eea; font-weight: bold;">Accuracy: SLAKE 75.4% | PathVQA 53.5%</p>
+        <p class="has-text-centered" style="margin-top: 0.5rem; color: #667eea; font-weight: bold;">准确率: SLAKE 75.4% | PathVQA 53.5%</p>
       </div>
       <div class="column">
-        <h3 class="title is-4">📄 Medical Report Generation</h3>
+        <h3 class="title is-4">📄 医学报告生成</h3>
         <img src="./static/images/reportgeneration.png" alt="Report Generation" style="width: 100%; border-radius: 10px;" loading="lazy">
-        <p class="has-text-centered" style="margin-top: 0.5rem; color: #667eea; font-weight: bold;">Generating detailed medical diagnostic reports</p>
+        <p class="has-text-centered" style="margin-top: 0.5rem; color: #667eea; font-weight: bold;">生成详细的医学诊断报告</p>
       </div>
     </div>
 
     <!-- Text-to-Image -->
     <div style="margin: 3rem 0;">
-      <h3 class="title is-3 has-text-centered">🎨 Text-Driven Medical Image Generation</h3>
+      <h3 class="title is-3 has-text-centered">🎨 文本驱动医学图像生成</h3>
       <div class="columns">
         <div class="column">
           <img src="./static/images/text2img1.png" alt="T2I Example 1" style="width: 100%; border-radius: 10px;" loading="lazy">
@@ -577,17 +577,17 @@
         </div>
       </div>
       <p class="has-text-centered" style="margin-top: 1rem;">
-        <em>High-quality text-driven image generation across 8 medical imaging modalities</em>
+        <em>跨8种医学成像模态的高质量文本驱动图像生成</em>
         <br>
-        <span class="tag is-success is-medium" style="margin-top: 0.5rem;">Average gFID: 96.29 | BioMedCLIP: 0.706</span>
+        <span class="tag is-success is-medium" style="margin-top: 0.5rem;">平均gFID: 96.29 | BioMedCLIP: 0.706</span>
       </p>
     </div>
 
     <!-- VAE Reconstruction -->
     <div style="margin: 3rem 0;">
-      <h3 class="title is-3 has-text-centered">🔬 VAE Reconstruction Quality</h3>
+      <h3 class="title is-3 has-text-centered">🔬 VAE重建质量</h3>
       <img src="./static/images/vae_demo_ver1.png" alt="VAE Reconstruction" style="width: 100%; border-radius: 10px;" loading="lazy">
-      <p class="has-text-centered" style="margin-top: 1rem;"><em>Qualitative comparison across diverse medical imaging modalities</em></p>
+      <p class="has-text-centered" style="margin-top: 1rem;"><em>跨多种医学成像模态的定性对比</em></p>
     </div>
 
   </div>
@@ -598,36 +598,36 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-2 has-text-centered" style="margin-bottom: 2rem;">Conclusion</h2>
+        <h2 class="title is-2 has-text-centered" style="margin-bottom: 2rem;">总结</h2>
 
         <div class="content has-text-justified" style="font-size: 1.05rem; line-height: 1.8;">
           <p>
-            We presented <strong>UniMedVL</strong>, a unified framework that simultaneously performs medical image understanding and generation within a single model, validated through extensive experiments on over 5 million medical samples. Our work demonstrates both state-of-the-art comprehension performance (75.40% on SLAKE, 53.5% on PathVQA, 85.8% on OmniMedVQA) and competitive generation quality (96.29 average gFID, 0.706 BioMedCLIP score) across 8 medical imaging modalities.
+            我们提出了<strong>UniMedVL</strong>，一个在单一模型内同时执行医学图像理解和生成的统一框架，通过在超过500万医学样本上的广泛实验进行了验证。我们的工作展示了最先进的理解性能（SLAKE 75.40%、PathVQA 53.5%、OmniMedVQA 85.8%）以及跨8种医学成像模态的优异生成质量（平均gFID 96.29，BioMedCLIP评分0.706）。
           </p>
 
           <div class="notification is-primary is-light" style="margin: 2rem 0;">
-            <h4 class="title is-5">🎯 Key Contributions</h4>
+            <h4 class="title is-5">🎯 关键贡献</h4>
             <ul style="margin-left: 1.5rem;">
-              <li><strong>Data Level:</strong> UniMed-5M dataset with 5.6M+ multimodal samples across 9 medical imaging modalities, reformatting diverse unimodal data into unified multimodal pairs</li>
-              <li><strong>Feature Level:</strong> Progressive Curriculum Learning paradigm that systematically builds from basic pattern recognition to sophisticated cross-modal reasoning through three dedicated training stages</li>
-              <li><strong>Task Level:</strong> First truly unified medical multimodal model achieving both understanding and generation within a single checkpoint, enabling seamless clinical workflow integration</li>
+              <li><strong>数据层面：</strong>UniMed-5M数据集包含560万+多模态样本，覆盖9种医学成像模态，将多样化的单模态数据重新格式化为统一的多模态配对</li>
+              <li><strong>特征层面：</strong>渐进式课程学习范式，通过三个专门的训练阶段系统性地从基础模式识别构建到复杂的跨模态推理</li>
+              <li><strong>任务层面：</strong>首个在单一checkpoint内实现理解和生成的真正统一医学多模态模型，实现无缝的临床工作流整合</li>
             </ul>
           </div>
 
           <p>
-            Crucially, our unified architecture enables <strong>bidirectional knowledge sharing</strong>—generation tasks enhance visual understanding features, demonstrating that integrating traditionally separate capabilities within a single medical framework unlocks improvements across diverse clinical scenarios. This challenges the conventional assumption that joint training compromises individual task performance, instead showing that medical multimodal learning benefits from task synergy when the data bottleneck is relieved.
+            至关重要的是，我们的统一架构实现了<strong>双向知识共享</strong>——生成任务增强了视觉理解特征，证明了在单一医学框架内整合传统上分离的能力能够解锁跨多样化临床场景的改进。这挑战了联合训练会损害单个任务性能的传统假设，反而表明当数据瓶颈得到缓解时，医学多模态学习会受益于任务协同。
           </p>
 
           <p>
-            While our current work focuses on 2D medical imaging, the proposed <strong>OKA (Observation-Knowledge-Analysis) paradigm</strong> establishes foundations for exploring diverse medical AI tasks beyond those demonstrated, including 3D volumetric analysis, temporal reasoning, and multimodal clinical decision support. This work represents a critical step toward truly integrated medical AI systems where understanding and generation capabilities synergistically enhance clinical workflows.
+            虽然我们当前的工作专注于2D医学成像，但所提出的<strong>OKA（观察-知识-分析）范式</strong>为探索超越已展示内容的多样化医学AI任务奠定了基础，包括3D体积分析、时序推理和多模态临床决策支持。这项工作代表了朝向真正整合的医学AI系统迈出的关键一步，其中理解和生成能力协同增强临床工作流。
           </p>
 
           <div style="text-align: center; margin-top: 2.5rem; padding: 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;">
             <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem;">
-              🚀 Bridging the Gap Between Medical AI and Clinical Practice
+              🚀 弥合医学AI与临床实践之间的鸿沟
             </p>
             <p style="font-size: 1rem; opacity: 0.95;">
-              From fragmented single-task models to unified multimodal intelligence
+              从碎片化的单任务模型到统一的多模态智能
             </p>
           </div>
         </div>

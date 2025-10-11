@@ -67,9 +67,9 @@
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              Junzhi Ning<sup>1*</sup>, Wei Li<sup>1,3*</sup>, Cheng Tang<sup>1,4*</sup>, Jiashi Lin<sup>1</sup>, Chenglong Ma<sup>1,5</sup>, Chaoyang Zhang<sup>1</sup>, Jiyao Liu<sup>1,5</sup>,<br>
-              Ying Chen<sup>1</sup>, Shujian Gao<sup>1,5</sup>, Lihao Liu<sup>1</sup>, Yuandong Pu<sup>1</sup>, Huihui Xu<sup>1</sup>, Chenhui Gou<sup>1</sup>, Ziyan Huang<sup>1</sup>,<br>
-              Yi Xin<sup>1</sup>, Qi Qin<sup>1</sup>, Zhongying Deng<sup>6</sup>, Diping Song<sup>1</sup>, Bin Fu<sup>1</sup>, Guang Yang<sup>9</sup>, Yuanfeng Ji<sup>10</sup>, Yanzhou Su<sup>8</sup>,<br>
+              Junzhi Ning<sup>1*</sup>, Wei Li<sup>1,3*</sup>, Cheng Tang<sup>1,4*</sup>, Jiashi Lin<sup>1</sup>, Chenglong Ma<sup>2,5</sup>, Chaoyang Zhang<sup>2</sup>, Jiyao Liu<sup>1,5</sup>,<br>
+              Ying Chen<sup>1</sup>, Shujian Gao<sup>1,5</sup>, Lihao Liu<sup>1</sup>, Yuandong Pu<sup>1</sup>, Huihui Xu<sup>1,11</sup>, Chenhui Gou<sup>7</sup>, Ziyan Huang<sup>1</sup>,<br>
+              Yi Xin<sup>1,2</sup>, Qi Qin<sup>1</sup>, Zhongying Deng<sup>6</sup>, Diping Song<sup>1</sup>, Bin Fu<sup>1</sup>, Guang Yang<sup>9</sup>, Yuanfeng Ji<sup>10</sup>, Yanzhou Su<sup>8</sup>,<br>
               Jin Ye<sup>1,7</sup>, Shixiang Tang<sup>1</sup>, Ming Hu<sup>1,7</sup>, Junjun He<sup>1,2†</sup>
             </span>
           </div>
@@ -79,13 +79,14 @@
               <sup>1</sup>Shanghai Artificial Intelligence Laboratory,
               <sup>2</sup>Shanghai Innovation Institute,
               <sup>3</sup>Shanghai Jiao Tong University,<br>
-              <sup>4</sup>Shanghai Institute of Laser Technology,
+              <sup>4</sup>Shanghai Institute of Optics and Fine Mechanics,
               <sup>5</sup>Fudan University,
               <sup>6</sup>University of Cambridge,
               <sup>7</sup>Monash University,<br>
               <sup>8</sup>Fuzhou University,
               <sup>9</sup>Imperial College London,
-              <sup>10</sup>Stanford University
+              <sup>10</sup>Stanford University,<br>
+              <sup>11</sup>The Hong Kong University of Science and Technology
             </span>
           </div>
 
@@ -212,7 +213,7 @@
 
         <!-- Solution -->
         <div class="notification is-success is-light" style="text-align: left; margin: 2rem 0;">
-          <h4 class="title is-5">✅ UniMedVL: Truly Unified Architecture</h4>
+          <h4 class="title is-5">✅ UniMedVL: Unified Architecture for Medical Data across 8 Modalities</h4>
           <p>
             <strong>UniMedVL is the first medical multimodal model achieving both understanding and generation within a single model checkpoint.</strong> Once loaded, it seamlessly handles:
           </p>
@@ -235,13 +236,6 @@
                 <p class="title is-2" style="color: white; margin-bottom: 0.5rem;">5.6M+</p>
                 <p class="subtitle is-5" style="color: white;">Training Samples</p>
                 <p style="font-size: 0.9rem;">9 medical imaging modalities</p>
-              </div>
-            </div>
-            <div class="column">
-              <div class="box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; text-align: center;">
-                <p class="title is-2" style="color: white; margin-bottom: 0.5rem;">75.4%</p>
-                <p class="subtitle is-5" style="color: white;">SLAKE Accuracy</p>
-                <p style="font-size: 0.9rem;">Medical image understanding SOTA</p>
               </div>
             </div>
             <div class="column">
@@ -355,13 +349,6 @@
       <div class="columns is-multiline">
         <div class="column is-one-third">
           <div class="box" style="border-left: 4px solid #667eea;">
-            <p class="heading">SLAKE VQA</p>
-            <p class="title is-3">75.4%</p>
-            <p class="subtitle is-6">vs. GMAI-VL 72.9%</p>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="box" style="border-left: 4px solid #667eea;">
             <p class="heading">PathVQA</p>
             <p class="title is-3">53.5%</p>
             <p class="subtitle is-6">vs. HealthGPT-L14 44.4%</p>
@@ -467,7 +454,6 @@
             <p class="heading">Virtual Immunohistochemistry Staining</p>
             <p class="title is-3">20.27 / 0.456</p>
             <p class="subtitle is-6">PSNR / SSIM</p>
-            <p style="color: #48c774; font-weight: bold;">vs. Pyramid Pix2pix: 21.16 / 0.477</p>
           </div>
         </div>
         <div class="column">
@@ -475,7 +461,6 @@
             <p class="heading">MRI Super-Resolution (4×)</p>
             <p class="title is-3">27.29 / 0.890</p>
             <p class="subtitle is-6">PSNR / SSIM</p>
-            <p style="color: #48c774; font-weight: bold;">Approaching specialized model Restormer: 31.85 / 0.938</p>
           </div>
         </div>
         <div class="column">
@@ -483,7 +468,6 @@
             <p class="heading">Cross-Modal Synthesis (T2↔FLAIR)</p>
             <p class="title is-3">25.07 / 0.882</p>
             <p class="subtitle is-6">Average PSNR / SSIM</p>
-            <p style="color: #48c774; font-weight: bold;">vs. pGAN: 24.55 / 0.879</p>
           </div>
         </div>
       </div>
@@ -493,9 +477,6 @@
             <p class="heading">Counterfactual Generation (Image + Text Explanation)</p>
             <p class="title is-4">gFID: 27.17 | AUROC: 0.797</p>
             <p class="subtitle is-6">BLEU-3: 0.2641 | METEOR: 0.4486 | ROUGE-L: 0.4649</p>
-            <p style="color: #3273dc; font-weight: bold; margin-top: 0.5rem;">
-              Surpassing specialized model ProgEmu while generating both high-quality images and explanatory text
-            </p>
           </div>
         </div>
       </div>
@@ -590,50 +571,6 @@
       <p class="has-text-centered" style="margin-top: 1rem;"><em>Qualitative comparison across diverse medical imaging modalities</em></p>
     </div>
 
-  </div>
-</section>
-
-<!-- Conclusion Section -->
-<section class="section" style="background-color: #f0f7ff;">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-2 has-text-centered" style="margin-bottom: 2rem;">Conclusion</h2>
-
-        <div class="content has-text-justified" style="font-size: 1.05rem; line-height: 1.8;">
-          <p>
-            We presented <strong>UniMedVL</strong>, a unified framework that simultaneously performs medical image understanding and generation within a single model, validated through extensive experiments on over 5 million medical samples. Our work demonstrates both state-of-the-art comprehension performance (75.40% on SLAKE, 53.5% on PathVQA, 85.8% on OmniMedVQA) and competitive generation quality (96.29 average gFID, 0.706 BioMedCLIP score) across 8 medical imaging modalities.
-          </p>
-
-          <div class="notification is-primary is-light" style="margin: 2rem 0;">
-            <h4 class="title is-5">🎯 Key Contributions</h4>
-            <ul style="margin-left: 1.5rem;">
-              <li><strong>Data Level:</strong> UniMed-5M dataset with 5.6M+ multimodal samples across 9 medical imaging modalities, reformatting diverse unimodal data into unified multimodal pairs</li>
-              <li><strong>Feature Level:</strong> Progressive Curriculum Learning paradigm that systematically builds from basic pattern recognition to sophisticated cross-modal reasoning through three dedicated training stages</li>
-              <li><strong>Task Level:</strong> First truly unified medical multimodal model achieving both understanding and generation within a single checkpoint, enabling seamless clinical workflow integration</li>
-            </ul>
-          </div>
-
-          <p>
-            Crucially, our unified architecture enables <strong>bidirectional knowledge sharing</strong>—generation tasks enhance visual understanding features, demonstrating that integrating traditionally separate capabilities within a single medical framework unlocks improvements across diverse clinical scenarios. This challenges the conventional assumption that joint training compromises individual task performance, instead showing that medical multimodal learning benefits from task synergy when the data bottleneck is relieved.
-          </p>
-
-          <p>
-            While our current work focuses on 2D medical imaging, the proposed <strong>OKA (Observation-Knowledge-Analysis) paradigm</strong> establishes foundations for exploring diverse medical AI tasks beyond those demonstrated, including 3D volumetric analysis, temporal reasoning, and multimodal clinical decision support. This work represents a critical step toward truly integrated medical AI systems where understanding and generation capabilities synergistically enhance clinical workflows.
-          </p>
-
-          <div style="text-align: center; margin-top: 2.5rem; padding: 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;">
-            <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem;">
-              🚀 Bridging the Gap Between Medical AI and Clinical Practice
-            </p>
-            <p style="font-size: 1rem; opacity: 0.95;">
-              From fragmented single-task models to unified multimodal intelligence
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
   </div>
 </section>
 

@@ -67,9 +67,9 @@
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              Junzhi Ning<sup>1*</sup>, Wei Li<sup>1,3*</sup>, Cheng Tang<sup>1,4*</sup>, Jiashi Lin<sup>1</sup>, Chenglong Ma<sup>1,5</sup>, Chaoyang Zhang<sup>1</sup>, Jiyao Liu<sup>1,5</sup>,<br>
-              Ying Chen<sup>1</sup>, Shujian Gao<sup>1,5</sup>, Lihao Liu<sup>1</sup>, Yuandong Pu<sup>1</sup>, Huihui Xu<sup>1</sup>, Chenhui Gou<sup>1</sup>, Ziyan Huang<sup>1</sup>,<br>
-              Yi Xin<sup>1</sup>, Qi Qin<sup>1</sup>, Zhongying Deng<sup>6</sup>, Diping Song<sup>1</sup>, Bin Fu<sup>1</sup>, Guang Yang<sup>9</sup>, Yuanfeng Ji<sup>10</sup>, Yanzhou Su<sup>8</sup>,<br>
+              Junzhi Ning<sup>1*</sup>, Wei Li<sup>1,3*</sup>, Cheng Tang<sup>1,4*</sup>, Jiashi Lin<sup>1</sup>, Chenglong Ma<sup>2,5</sup>, Chaoyang Zhang<sup>2</sup>, Jiyao Liu<sup>1,5</sup>,<br>
+              Ying Chen<sup>1</sup>, Shujian Gao<sup>1,5</sup>, Lihao Liu<sup>1</sup>, Yuandong Pu<sup>1</sup>, Huihui Xu<sup>1,11</sup>, Chenhui Gou<sup>7</sup>, Ziyan Huang<sup>1</sup>,<br>
+              Yi Xin<sup>1,2</sup>, Qi Qin<sup>1</sup>, Zhongying Deng<sup>6</sup>, Diping Song<sup>1</sup>, Bin Fu<sup>1</sup>, Guang Yang<sup>9</sup>, Yuanfeng Ji<sup>10</sup>, Yanzhou Su<sup>8</sup>,<br>
               Jin Ye<sup>1,7</sup>, Shixiang Tang<sup>1</sup>, Ming Hu<sup>1,7</sup>, Junjun He<sup>1,2†</sup>
             </span>
           </div>
@@ -79,13 +79,14 @@
               <sup>1</sup>Shanghai Artificial Intelligence Laboratory,
               <sup>2</sup>Shanghai Innovation Institute,
               <sup>3</sup>Shanghai Jiao Tong University,<br>
-              <sup>4</sup>Shanghai Institute of Laser Technology,
+              <sup>4</sup>Shanghai Institute of Optics and Fine Mechanics,
               <sup>5</sup>Fudan University,
               <sup>6</sup>University of Cambridge,
               <sup>7</sup>Monash University,<br>
               <sup>8</sup>Fuzhou University,
               <sup>9</sup>Imperial College London,
-              <sup>10</sup>Stanford University
+              <sup>10</sup>Stanford University,<br>
+              <sup>11</sup>The Hong Kong University of Science and Technology
             </span>
           </div>
 
@@ -212,7 +213,7 @@
 
         <!-- Solution -->
         <div class="notification is-success is-light" style="text-align: left; margin: 2rem 0;">
-          <h4 class="title is-5">✅ UniMedVL: 真正的统一架构</h4>
+          <h4 class="title is-5">✅ UniMedVL: 跨8种模态的医学数据统一架构</h4>
           <p>
             <strong>UniMedVL是首个在单一模型checkpoint内同时实现理解与生成的医学多模态模型。</strong>一旦加载模型，即可无缝处理：
           </p>
@@ -235,13 +236,6 @@
                 <p class="title is-2" style="color: white; margin-bottom: 0.5rem;">5.6M+</p>
                 <p class="subtitle is-5" style="color: white;">训练样本</p>
                 <p style="font-size: 0.9rem;">9种医学成像模态</p>
-              </div>
-            </div>
-            <div class="column">
-              <div class="box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; text-align: center;">
-                <p class="title is-2" style="color: white; margin-bottom: 0.5rem;">75.4%</p>
-                <p class="subtitle is-5" style="color: white;">SLAKE准确率</p>
-                <p style="font-size: 0.9rem;">医学图像理解SOTA</p>
               </div>
             </div>
             <div class="column">
@@ -355,13 +349,6 @@
       <div class="columns is-multiline">
         <div class="column is-one-third">
           <div class="box" style="border-left: 4px solid #667eea;">
-            <p class="heading">SLAKE VQA</p>
-            <p class="title is-3">75.4%</p>
-            <p class="subtitle is-6">vs. GMAI-VL 72.9%</p>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="box" style="border-left: 4px solid #667eea;">
             <p class="heading">PathVQA</p>
             <p class="title is-3">53.5%</p>
             <p class="subtitle is-6">vs. HealthGPT-L14 44.4%</p>
@@ -467,7 +454,6 @@
             <p class="heading">虚拟免疫组化染色</p>
             <p class="title is-3">20.27 / 0.456</p>
             <p class="subtitle is-6">PSNR / SSIM</p>
-            <p style="color: #48c774; font-weight: bold;">vs. Pyramid Pix2pix: 21.16 / 0.477</p>
           </div>
         </div>
         <div class="column">
@@ -475,7 +461,6 @@
             <p class="heading">MRI超分辨率 (4×)</p>
             <p class="title is-3">27.29 / 0.890</p>
             <p class="subtitle is-6">PSNR / SSIM</p>
-            <p style="color: #48c774; font-weight: bold;">接近专用模型 Restormer: 31.85 / 0.938</p>
           </div>
         </div>
         <div class="column">
@@ -483,7 +468,6 @@
             <p class="heading">跨模态合成 (T2↔FLAIR)</p>
             <p class="title is-3">25.07 / 0.882</p>
             <p class="subtitle is-6">平均 PSNR / SSIM</p>
-            <p style="color: #48c774; font-weight: bold;">vs. pGAN: 24.55 / 0.879</p>
           </div>
         </div>
       </div>
@@ -493,9 +477,6 @@
             <p class="heading">反事实生成（图像+文本解释）</p>
             <p class="title is-4">gFID: 27.17 | AUROC: 0.797</p>
             <p class="subtitle is-6">BLEU-3: 0.2641 | METEOR: 0.4486 | ROUGE-L: 0.4649</p>
-            <p style="color: #3273dc; font-weight: bold; margin-top: 0.5rem;">
-              超越专用模型ProgEmu，同时生成高质量图像与解释文本
-            </p>
           </div>
         </div>
       </div>
@@ -590,50 +571,6 @@
       <p class="has-text-centered" style="margin-top: 1rem;"><em>跨多种医学成像模态的定性对比</em></p>
     </div>
 
-  </div>
-</section>
-
-<!-- Conclusion Section -->
-<section class="section" style="background-color: #f0f7ff;">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-2 has-text-centered" style="margin-bottom: 2rem;">总结</h2>
-
-        <div class="content has-text-justified" style="font-size: 1.05rem; line-height: 1.8;">
-          <p>
-            我们提出了<strong>UniMedVL</strong>，一个在单一模型内同时执行医学图像理解和生成的统一框架，通过在超过500万医学样本上的广泛实验进行了验证。我们的工作展示了最先进的理解性能（SLAKE 75.40%、PathVQA 53.5%、OmniMedVQA 85.8%）以及跨8种医学成像模态的优异生成质量（平均gFID 96.29，BioMedCLIP评分0.706）。
-          </p>
-
-          <div class="notification is-primary is-light" style="margin: 2rem 0;">
-            <h4 class="title is-5">🎯 关键贡献</h4>
-            <ul style="margin-left: 1.5rem;">
-              <li><strong>数据层面：</strong>UniMed-5M数据集包含560万+多模态样本，覆盖9种医学成像模态，将多样化的单模态数据重新格式化为统一的多模态配对</li>
-              <li><strong>特征层面：</strong>渐进式课程学习范式，通过三个专门的训练阶段系统性地从基础模式识别构建到复杂的跨模态推理</li>
-              <li><strong>任务层面：</strong>首个在单一checkpoint内实现理解和生成的真正统一医学多模态模型，实现无缝的临床工作流整合</li>
-            </ul>
-          </div>
-
-          <p>
-            至关重要的是，我们的统一架构实现了<strong>双向知识共享</strong>——生成任务增强了视觉理解特征，证明了在单一医学框架内整合传统上分离的能力能够解锁跨多样化临床场景的改进。这挑战了联合训练会损害单个任务性能的传统假设，反而表明当数据瓶颈得到缓解时，医学多模态学习会受益于任务协同。
-          </p>
-
-          <p>
-            虽然我们当前的工作专注于2D医学成像，但所提出的<strong>OKA（观察-知识-分析）范式</strong>为探索超越已展示内容的多样化医学AI任务奠定了基础，包括3D体积分析、时序推理和多模态临床决策支持。这项工作代表了朝向真正整合的医学AI系统迈出的关键一步，其中理解和生成能力协同增强临床工作流。
-          </p>
-
-          <div style="text-align: center; margin-top: 2.5rem; padding: 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;">
-            <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem;">
-              🚀 弥合医学AI与临床实践之间的鸿沟
-            </p>
-            <p style="font-size: 1rem; opacity: 0.95;">
-              从碎片化的单任务模型到统一的多模态智能
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
   </div>
 </section>
 

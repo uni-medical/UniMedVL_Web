@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://uni-medical.github.io/UniMedVL/sitemap.xml

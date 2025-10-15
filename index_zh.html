@@ -116,6 +116,14 @@
                 </a>
               </span>
               <span class="link-block">
+                <a href="https://huggingface.co/General-Medical-AI/UniMedVL" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-cube"></i>
+                  </span>
+                  <span>模型</span>
+                </a>
+              </span>
+              <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark" style="opacity: 0.5; pointer-events: none;">
                   <span class="icon">
                       <i class="far fa-images"></i>
@@ -533,15 +541,15 @@
     </div>
 
     <!-- VQA and Report Generation -->
-    <div class="columns" style="margin: 3rem 0;">
-      <div class="column">
+    <div style="margin: 3rem 0;">
+      <div style="margin-bottom: 3rem;">
         <h3 class="title is-4">💬 医学视觉问答</h3>
-        <img src="./static/images/visual_question_answering.png" alt="VQA Examples" style="width: 100%; border-radius: 10px;" loading="lazy">
+        <img src="./static/images/visual_question_answering.png?v=2" alt="VQA Examples" style="width: 100%; border-radius: 10px;" loading="lazy">
         <p class="has-text-centered" style="margin-top: 0.5rem; color: #667eea; font-weight: bold;">准确率: SLAKE 75.4% | PathVQA 53.5%</p>
       </div>
-      <div class="column">
+      <div>
         <h3 class="title is-4">📄 医学报告生成</h3>
-        <img src="./static/images/reportgeneration.png" alt="Report Generation" style="width: 100%; border-radius: 10px;" loading="lazy">
+        <img src="./static/images/reportgeneration.png?v=2" alt="Report Generation" style="width: 100%; border-radius: 10px;" loading="lazy">
         <p class="has-text-centered" style="margin-top: 0.5rem; color: #667eea; font-weight: bold;">生成详细的医学诊断报告</p>
       </div>
     </div>
@@ -578,54 +586,38 @@
         UniMedVL支持的八种不同医学成像模态
       </p>
 
-      <div class="columns is-multiline" style="margin-top: 2rem;">
-        <div class="column is-half">
-          <div style="text-align: center; min-height: 350px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
-            <img src="./static/images/cxr.png" alt="胸部X光" style="width: 60%; height: 300px; object-fit: contain; border-radius: 10px;" loading="lazy">
-            <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">胸部X光 (CXR)</p>
-          </div>
+      <div style="margin-top: 2rem;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <img src="./static/images/cxr.png" alt="胸部X光" style="width: 100%; border-radius: 10px;" loading="lazy">
+          <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">胸部X光 (CXR)</p>
         </div>
-        <div class="column is-half">
-          <div style="text-align: center; min-height: 350px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
-            <img src="./static/images/ct.png" alt="CT扫描" style="width: 60%; height: 300px; object-fit: contain; border-radius: 10px;" loading="lazy">
-            <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">CT扫描</p>
-          </div>
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <img src="./static/images/ct.png" alt="CT扫描" style="width: 100%; border-radius: 10px;" loading="lazy">
+          <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">CT扫描</p>
         </div>
-        <div class="column is-half">
-          <div style="text-align: center; min-height: 350px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
-            <img src="./static/images/mri.png" alt="MRI磁共振" style="width: 60%; height: 300px; object-fit: contain; border-radius: 10px;" loading="lazy">
-            <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">MRI磁共振</p>
-          </div>
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <img src="./static/images/mri.png" alt="MRI磁共振" style="width: 100%; border-radius: 10px;" loading="lazy">
+          <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">MRI磁共振</p>
         </div>
-        <div class="column is-half">
-          <div style="text-align: center; min-height: 350px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
-            <img src="./static/images/ultrasound.png" alt="超声影像" style="width: 60%; height: 300px; object-fit: contain; border-radius: 10px;" loading="lazy">
-            <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">超声影像</p>
-          </div>
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <img src="./static/images/ultrasound.png" alt="超声影像" style="width: 100%; border-radius: 10px;" loading="lazy">
+          <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">超声影像</p>
         </div>
-        <div class="column is-half">
-          <div style="text-align: center; min-height: 350px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
-            <img src="./static/images/oct.png" alt="OCT光学相干" style="width: 60%; height: 300px; object-fit: contain; border-radius: 10px;" loading="lazy">
-            <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">OCT光学相干断层扫描</p>
-          </div>
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <img src="./static/images/oct.png" alt="OCT光学相干" style="width: 100%; border-radius: 10px;" loading="lazy">
+          <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">OCT光学相干断层扫描</p>
         </div>
-        <div class="column is-half">
-          <div style="text-align: center; min-height: 350px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
-            <img src="./static/images/retinal.png" alt="眼底照片" style="width: 60%; height: 300px; object-fit: contain; border-radius: 10px;" loading="lazy">
-            <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">眼底照片</p>
-          </div>
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <img src="./static/images/retinal.png" alt="眼底照片" style="width: 100%; border-radius: 10px;" loading="lazy">
+          <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">眼底照片</p>
         </div>
-        <div class="column is-half">
-          <div style="text-align: center; min-height: 350px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
-            <img src="./static/images/his.png" alt="病理切片" style="width: 60%; height: 300px; object-fit: contain; border-radius: 10px;" loading="lazy">
-            <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">病理切片 (HIS)</p>
-          </div>
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <img src="./static/images/his.png" alt="病理切片" style="width: 100%; border-radius: 10px;" loading="lazy">
+          <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">病理切片 (HIS)</p>
         </div>
-        <div class="column is-half">
-          <div style="text-align: center; min-height: 350px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
-            <img src="./static/images/endoscopy.png" alt="内窥镜" style="width: 60%; height: 300px; object-fit: contain; border-radius: 10px;" loading="lazy">
-            <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">内窥镜</p>
-          </div>
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <img src="./static/images/endoscopy.png" alt="内窥镜" style="width: 100%; border-radius: 10px;" loading="lazy">
+          <p class="has-text-centered" style="margin-top: 0.5rem; font-weight: bold;">内窥镜</p>
         </div>
       </div>
     </div>

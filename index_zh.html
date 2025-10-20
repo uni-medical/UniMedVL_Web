@@ -121,11 +121,11 @@
             <div class="publication-links">
               <!-- Placeholder Links -->
               <span class="link-block">
-                <a href="#" class="external-link button is-normal is-rounded is-dark" style="opacity: 0.5; pointer-events: none;">
+                <a href="https://arxiv.org/abs/2510.15710" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
-                  <span>Paper (Coming Soon)</span>
+                  <span>Paper</span>
                 </a>
               </span>
               <span class="link-block">
@@ -171,7 +171,7 @@
             临床诊断需要能够处理多模态医学输入（图像、病史、实验室结果）并生成多样化输出（文本报告和视觉内容如标注、分割掩码和图像）的模型。然而，现有医学AI系统割裂了这一统一过程：医学图像理解模型能解释图像但无法生成视觉输出，而医学图像生成模型能合成图像但无法提供文本解释。这导致了数据表示、特征集成和任务级多模态能力的缺失。
           </p>
           <p>
-            为此，我们提出了一个多层次框架，通过<strong>观察-知识-分析（OKA）范式</strong>模拟临床诊断流程。具体来说：在观察层面，我们构建了包含超过<strong>560万样本</strong>的UniMed-5M数据集，将多样化的单模态数据重新格式化为多模态配对数据；在知识层面，我们提出了<strong>渐进式课程学习</strong>，系统性地引入医学多模态知识；在分析层面，我们推出了<strong>UniMedVL</strong>——首个在<strong>单一架构内</strong>同时完成图像理解和生成任务的医学统一多模态模型。
+            为此，我们提出了一个多层次框架，通过<strong>观察-知识-分析（OKA）范式</strong>模拟临床诊断流程。具体来说：在观察层面，我们构建了包含超过<strong>560万样本</strong>的UniMed-5M数据集，将多样化的单模态数据重新格式化为多模态配对数据；在知识层面，我们提出了<strong>渐进式课程学习</strong>，系统性地引入医学多模态知识；在分析层面，我们推出了<strong>UniMedVL</strong>——基于OKA范式设计的医学统一多模态模型，在<strong>单一架构内</strong>全面实现图像理解与生成任务的综合分析。
           </p>
           <p>
             <strong>UniMedVL在5个医学图像理解基准上取得卓越性能，同时在8种医学成像模态的生成质量上媲美专用模型</strong>。更重要的是，我们的统一架构实现了双向知识共享——生成任务增强了视觉理解特征，证明了在单一医学框架内整合传统上分离的能力能够解锁跨多样化临床场景的改进。
@@ -233,7 +233,7 @@
         <div class="notification is-success is-light" style="text-align: left; margin: 2rem 0;">
           <h4 class="title is-5">✅ UniMedVL: 跨8种模态的医学数据统一架构</h4>
           <p>
-            <strong>UniMedVL是首个在单一模型checkpoint内同时实现理解与生成的医学多模态模型。</strong>一旦加载模型，即可无缝处理：
+            <strong>UniMedVL通过OKA框架在单一模型checkpoint内全面实现医学多模态的理解与生成能力。</strong>一旦加载模型，即可无缝处理：
           </p>
           <ul>
             <li>📖 <strong>理解任务</strong>: 医学VQA、图像描述、诊断报告生成</li>

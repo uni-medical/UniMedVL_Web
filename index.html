@@ -121,11 +121,11 @@
             <div class="publication-links">
               <!-- Placeholder Links -->
               <span class="link-block">
-                <a href="#" class="external-link button is-normal is-rounded is-dark" style="opacity: 0.5; pointer-events: none;">
+                <a href="https://arxiv.org/abs/2510.15710" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
-                  <span>Paper (Coming Soon)</span>
+                  <span>Paper</span>
                 </a>
               </span>
               <span class="link-block">
@@ -171,7 +171,7 @@
             Clinical diagnosis demands models that can process multimodal medical inputs (images, patient histories, lab results) and generate diverse outputs including both textual reports and visual content (annotations, segmentation masks, and images). Despite this need, existing medical AI systems disrupt this unified process: medical image understanding models interpret images but cannot generate visual outputs, while medical image generation models synthesize images but cannot provide textual explanations. This leads to gaps in data representation, feature integration, and task-level multimodal capabilities.
           </p>
           <p>
-            To this end, we propose a multi-level framework that mirrors clinical diagnosis through the <strong>Observation-Knowledge-Analysis (OKA) paradigm</strong>. Specifically, at the observation level, we construct UniMed-5M, a dataset comprising over <strong>5.6 million samples</strong> that reformat diverse unimodal data into multimodal pairs for foundational observation. At the knowledge level, we propose <strong>Progressive Curriculum Learning</strong> that systematically introduces medical multimodal knowledge. At the analysis level, we introduce <strong>UniMedVL</strong>—the first medical unified multimodal model for the simultaneous analysis of image understanding and generation tasks <strong>within a single architecture</strong>.
+            To this end, we propose a multi-level framework that mirrors clinical diagnosis through the <strong>Observation-Knowledge-Analysis (OKA) paradigm</strong>. Specifically, at the observation level, we construct UniMed-5M, a dataset comprising over <strong>5.6 million samples</strong> that reformat diverse unimodal data into multimodal pairs for foundational observation. At the knowledge level, we propose <strong>Progressive Curriculum Learning</strong> that systematically introduces medical multimodal knowledge. At the analysis level, we introduce <strong>UniMedVL</strong>—a medical unified multimodal model designed within the OKA paradigm for comprehensive analysis of image understanding and generation tasks <strong>within a single architecture</strong>.
           </p>
           <p>
             <strong>UniMedVL achieves superior performance on five medical image understanding benchmarks, while matching specialized models in generation quality across eight medical imaging modalities</strong>. Crucially, our unified architecture enables bidirectional knowledge sharing—generation tasks enhance visual understanding features, demonstrating that integrating traditionally separate capabilities within a single medical framework unlocks improvements across diverse clinical scenarios.
@@ -233,7 +233,7 @@
         <div class="notification is-success is-light" style="text-align: left; margin: 2rem 0;">
           <h4 class="title is-5">✅ UniMedVL: Unified Architecture for Medical Data across 8 Modalities</h4>
           <p>
-            <strong>UniMedVL is the first medical multimodal model achieving both understanding and generation within a single model checkpoint.</strong> Once loaded, it seamlessly handles:
+            <strong>UniMedVL leverages the OKA framework to achieve comprehensive medical multimodal understanding and generation within a single model checkpoint.</strong> Once loaded, it seamlessly handles:
           </p>
           <ul>
             <li>📖 <strong>Understanding Tasks</strong>: Medical VQA, image captioning, diagnostic report generation</li>

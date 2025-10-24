@@ -2,6 +2,17 @@
 <html>
 <head>
   <meta charset="utf-8">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DKYYMZDSW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-2DKYYMZDSW');
+  </script>
+
   <meta name="description"
         content="UniMedVL: A unified medical foundation model enabling both understanding and generation capabilities within a single architecture">
   <meta name="keywords" content="UniMedVL, Medical AI, Vision-Language, Foundation Model, Medical Imaging, VQA">
@@ -121,7 +132,9 @@
             <div class="publication-links">
               <!-- Placeholder Links -->
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2510.15710" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://arxiv.org/abs/2510.15710"
+                   class="external-link button is-normal is-rounded is-dark"
+                   onclick="gtag('event', 'click', {'event_category': 'outbound_link', 'event_label': 'paper_arxiv', 'value': 'https://arxiv.org/abs/2510.15710'});">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
@@ -129,7 +142,9 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://github.com/uni-medical/UniMedVL" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://github.com/uni-medical/UniMedVL"
+                   class="external-link button is-normal is-rounded is-dark"
+                   onclick="gtag('event', 'click', {'event_category': 'outbound_link', 'event_label': 'github_code', 'value': 'https://github.com/uni-medical/UniMedVL'});">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
@@ -137,7 +152,9 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://huggingface.co/General-Medical-AI/UniMedVL" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://huggingface.co/General-Medical-AI/UniMedVL"
+                   class="external-link button is-normal is-rounded is-dark"
+                   onclick="gtag('event', 'click', {'event_category': 'outbound_link', 'event_label': 'huggingface_model', 'value': 'https://huggingface.co/General-Medical-AI/UniMedVL'});">
                   <span class="icon">
                       <i class="fas fa-cube"></i>
                   </span>

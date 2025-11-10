@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>图像对比滑块演示 - Image Comparison Slider Demo</title>
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/image-compare.css">
+
+  <style>
+    body {
+      padding: 2rem;
+      background-color: #f5f5f5;
+    }
+
+    .demo-section {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .demo-title {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .demo-description {
+      margin-bottom: 2rem;
+      text-align: center;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1 class="title is-2 has-text-centered" style="margin-bottom: 3rem;">
+    🖼️ 图像对比滑块演示
+  </h1>
+
+  <!-- 演示 1: 跨模态生成对比 -->
+  <div class="demo-section">
+    <h2 class="demo-title title is-4">示例 1: UniMedVL 跨模态生成对比</h2>
+    <p class="demo-description">拖动滑块查看原始MRI与模型生成结果的对比</p>
+
+    <div class="image-compare-container">
+      <div class="image-compare-wrapper">
+        <!-- 后面的图片 (右侧) -->
+        <img src="./static/images/comparison/1_generated.png" alt="生成的MRI" class="image-compare-after">
+
+        <!-- 前面的图片 (左侧) - 通过遮罩层显示 -->
+        <div class="image-compare-overlay">
+          <img src="./static/images/comparison/1.png" alt="原始MRI">
+        </div>
+
+        <!-- 滑块 -->
+        <div class="image-compare-slider"></div>
+
+        <!-- 标签 -->
+        <div class="image-compare-label before">Original</div>
+        <div class="image-compare-label after">Generated</div>
+      </div>
+    </div>
+
+    <p class="has-text-centered" style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+      <strong>跨模态合成:</strong> T1-weighted MRI → UniMedVL → Enhanced MRI Sequence
+    </p>
+  </div>
+
+  <!-- 演示 2: 另一个对比示例 -->
+  <div class="demo-section">
+    <h2 class="demo-title title is-4">示例 2: 不同成像模态对比</h2>
+    <p class="demo-description">对比不同医学成像技术的效果</p>
+
+    <div class="image-compare-container">
+      <div class="image-compare-wrapper">
+        <!-- 后面的图片 (右侧) -->
+        <img src="./static/images/ultrasound.jpg" alt="超声" class="image-compare-after">
+
+        <!-- 前面的图片 (左侧) -->
+        <div class="image-compare-overlay">
+          <img src="./static/images/cxr.jpg" alt="X光">
+        </div>
+
+        <!-- 滑块 -->
+        <div class="image-compare-slider"></div>
+
+        <!-- 标签 -->
+        <div class="image-compare-label before">X-Ray</div>
+        <div class="image-compare-label after">Ultrasound</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 演示 3: 组织学对比 -->
+  <div class="demo-section">
+    <h2 class="demo-title title is-4">示例 3: 组织学图像对比</h2>
+    <p class="demo-description">对比不同染色或处理方法的效果</p>
+
+    <div class="image-compare-container">
+      <div class="image-compare-wrapper">
+        <!-- 后面的图片 (右侧) -->
+        <img src="./static/images/endoscopy.jpg" alt="内窥镜" class="image-compare-after">
+
+        <!-- 前面的图片 (左侧) -->
+        <div class="image-compare-overlay">
+          <img src="./static/images/his.jpg" alt="病理切片">
+        </div>
+
+        <!-- 滑块 -->
+        <div class="image-compare-slider"></div>
+
+        <!-- 标签 -->
+        <div class="image-compare-label before">病理切片</div>
+        <div class="image-compare-label after">内窥镜</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 使用说明 -->
+  <div class="demo-section">
+    <h2 class="title is-4 has-text-centered">📖 使用说明</h2>
+    <div class="content">
+      <h3>如何在你的项目中使用:</h3>
+
+      <h4>1. 引入必要的文件</h4>
+      <pre><code>&lt;link rel="stylesheet" href="./static/css/image-compare.css"&gt;
+&lt;script src="./static/js/image-compare.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h4>2. HTML 结构</h4>
+      <pre><code>&lt;div class="image-compare-container"&gt;
+  &lt;div class="image-compare-wrapper"&gt;
+    &lt;!-- 右侧图片 --&gt;
+    &lt;img src="图片2.jpg" alt="新图" class="image-compare-after"&gt;
+
+    &lt;!-- 左侧图片(通过遮罩显示) --&gt;
+    &lt;div class="image-compare-overlay"&gt;
+      &lt;img src="图片1.jpg" alt="旧图"&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 滑块 --&gt;
+    &lt;div class="image-compare-slider"&gt;&lt;/div&gt;
+
+    &lt;!-- 可选: 标签 --&gt;
+    &lt;div class="image-compare-label before"&gt;旧图&lt;/div&gt;
+    &lt;div class="image-compare-label after"&gt;新图&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+      <h4>3. 特性</h4>
+      <ul>
+        <li>✅ 支持鼠标拖动</li>
+        <li>✅ 支持触摸屏(移动端)</li>
+        <li>✅ 响应式设计</li>
+        <li>✅ 自动初始化所有滑块</li>
+        <li>✅ 可自定义标签文字</li>
+      </ul>
+
+      <h4>4. 自定义样式</h4>
+      <p>你可以通过修改 CSS 变量来调整样式:</p>
+      <ul>
+        <li><code>padding-bottom</code>: 调整容器高宽比(默认 56.25% = 16:9)</li>
+        <li>滑块颜色、标签样式等都可以在 CSS 文件中自定义</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 返回按钮 -->
+  <div class="has-text-centered" style="margin-top: 3rem;">
+    <a href="index.html" class="button is-primary is-medium">
+      <span class="icon">
+        <i class="fas fa-arrow-left"></i>
+      </span>
+      <span>返回主页</span>
+    </a>
+  </div>
+</div>
+
+<script src="./static/js/image-compare.js"></script>
+</body>
+</html>

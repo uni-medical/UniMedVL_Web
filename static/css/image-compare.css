@@ -1,0 +1,142 @@
+/* Image Comparison Slider Component */
+.image-compare-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  user-select: none;
+}
+
+.image-compare-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* 移除固定高度,让图片决定容器高度 */
+  display: inline-block;
+}
+
+/* 底层图片 - 完整显示,原始尺寸 */
+.image-compare-after {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+/* 遮罩层 - 窗帘效果 */
+.image-compare-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 3;
+  transition: none;
+}
+
+/* 遮罩层内的图片 - 关键:需要覆盖整个wrapper区域,而非overlay */
+.image-compare-overlay img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  max-width: none;
+  /* 确保图片不随遮罩层移动 */
+  pointer-events: none;
+  display: block;
+}
+
+.image-compare-slider {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  cursor: ew-resize;
+  z-index: 5;
+  transform: translateX(-50%);
+  transition: background-color 0.2s;
+}
+
+.image-compare-slider:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.image-compare-slider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  background-color: white;
+  border: 3px solid rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.image-compare-slider:hover::before {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.image-compare-slider::after {
+  content: '\2194'; /* 左右箭头符号 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+/* 标签样式 */
+.image-compare-label {
+  position: absolute;
+  top: 20px;
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.image-compare-label.before {
+  left: 20px;
+}
+
+.image-compare-label.after {
+  right: 20px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .image-compare-slider::before {
+    width: 40px;
+    height: 40px;
+  }
+
+  .image-compare-slider::after {
+    font-size: 16px;
+  }
+
+  .image-compare-label {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}

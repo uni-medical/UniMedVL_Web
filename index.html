@@ -48,6 +48,7 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/image-compare.css">
   <link rel="icon" type="image/jpg" href="./static/images/favicon.jpg">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -55,6 +56,7 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+  <script src="./static/js/image-compare.js"></script>
 </head>
 <body>
 
@@ -603,6 +605,148 @@
       <img src="./static/images/vae_demo_ver1.jpg" alt="VAE Reconstruction" style="width: 100%; border-radius: 10px;" loading="lazy">
       <p class="has-text-centered" style="margin-top: 1rem;"><em>Qualitative comparison across diverse medical imaging modalities</em></p>
     </div>
+
+    <!-- Interactive Image Comparison -->
+    <div style="margin: 3rem 0;">
+      <h3 class="title is-3 has-text-centered">🔄 Cross-Modal Translation Gallery</h3>
+      <p class="subtitle has-text-centered" style="margin-bottom: 2rem;">
+        Drag the slider to compare input and generated images
+      </p>
+
+      <!-- 第一行: 2个对比 -->
+      <div class="columns is-variable is-4 is-multiline" style="max-width: 1200px; margin: 0 auto 2rem auto;">
+        <div class="column is-half">
+          <div class="image-compare-container">
+            <div class="image-compare-wrapper">
+              <img src="./static/images/comparison/1_generated.png" alt="Generated" class="image-compare-after">
+              <div class="image-compare-overlay">
+                <img src="./static/images/comparison/1.png" alt="Input">
+              </div>
+              <div class="image-compare-slider"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-half">
+          <div class="image-compare-container">
+            <div class="image-compare-wrapper">
+              <img src="./static/images/comparison/2_generated.png" alt="Generated" class="image-compare-after">
+              <div class="image-compare-overlay">
+                <img src="./static/images/comparison/2.png" alt="Input">
+              </div>
+              <div class="image-compare-slider"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二行: 3个对比 -->
+      <div class="columns is-variable is-4 is-multiline" style="max-width: 1200px; margin: 0 auto 2rem auto;">
+        <div class="column is-one-third">
+          <div class="image-compare-container">
+            <div class="image-compare-wrapper">
+              <img src="./static/images/comparison/150_mr_generated.png" alt="Generated" class="image-compare-after">
+              <div class="image-compare-overlay">
+                <img src="./static/images/comparison/150_mr_input.png" alt="Input">
+              </div>
+              <div class="image-compare-slider"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-one-third">
+          <div class="image-compare-container">
+            <div class="image-compare-wrapper">
+              <img src="./static/images/comparison/105_t2f_generated.png" alt="Generated" class="image-compare-after">
+              <div class="image-compare-overlay">
+                <img src="./static/images/comparison/105_t2f_input.png" alt="Input">
+              </div>
+              <div class="image-compare-slider"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-one-third">
+          <div class="image-compare-container">
+            <div class="image-compare-wrapper">
+              <img src="./static/images/comparison/59_t2f_generated.png" alt="Generated" class="image-compare-after">
+              <div class="image-compare-overlay">
+                <img src="./static/images/comparison/59_t2f_input.png" alt="Input">
+              </div>
+              <div class="image-compare-slider"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第三行: 3个对比 -->
+      <div class="columns is-variable is-4 is-multiline" style="max-width: 1200px; margin: 0 auto 2rem auto;">
+        <div class="column is-one-third">
+          <div class="image-compare-container">
+            <div class="image-compare-wrapper">
+              <img src="./static/images/comparison/IXI441-HH-2154-T2_72_generated.png" alt="Generated" class="image-compare-after">
+              <div class="image-compare-overlay">
+                <img src="./static/images/comparison/IXI441-HH-2154-T2_72_input.png" alt="Input">
+              </div>
+              <div class="image-compare-slider"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-one-third">
+          <div class="image-compare-container">
+            <div class="image-compare-wrapper">
+              <img src="./static/images/comparison/00001_test_2+_generated.png" alt="Generated" class="image-compare-after">
+              <div class="image-compare-overlay">
+                <img src="./static/images/comparison/00001_test_2+_input.png" alt="Input">
+              </div>
+              <div class="image-compare-slider"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-one-third">
+          <div class="image-compare-container">
+            <div class="image-compare-wrapper">
+              <img src="./static/images/comparison/i01s57004382-i02s53911552-ref-reg_generated.png" alt="Generated" class="image-compare-after">
+              <div class="image-compare-overlay">
+                <img src="./static/images/comparison/i01s57004382-i02s53911552-ref-reg_input.png" alt="Input">
+              </div>
+              <div class="image-compare-slider"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第四行: 2个对比 -->
+      <div class="columns is-variable is-4 is-multiline" style="max-width: 1200px; margin: 0 auto;">
+        <div class="column is-half">
+          <div class="image-compare-container">
+            <div class="image-compare-wrapper">
+              <img src="./static/images/comparison/94a7ba94-9251-42c8-84b6-c3cac85a78ec_generated.png" alt="Generated" class="image-compare-after">
+              <div class="image-compare-overlay">
+                <img src="./static/images/comparison/94a7ba94-9251-42c8-84b6-c3cac85a78ec_input.png" alt="Input">
+              </div>
+              <div class="image-compare-slider"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-half">
+          <div class="image-compare-container">
+            <div class="image-compare-wrapper">
+              <img src="./static/images/comparison/df21b6dd-32b7-4edd-8b7b-fa1a35e0c043_generated.png" alt="Generated" class="image-compare-after">
+              <div class="image-compare-overlay">
+                <img src="./static/images/comparison/df21b6dd-32b7-4edd-8b7b-fa1a35e0c043_input.png" alt="Input">
+              </div>
+              <div class="image-compare-slider"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr style="margin: 3rem 0;">
 
     <!-- Medical Imaging Modalities Gallery -->
     <div style="margin: 3rem 0;">

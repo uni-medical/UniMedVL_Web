@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://uni-medical.github.io/UniMedVL/sitemap.xml
+Sitemap: https://uni-medical.github.io/UniMedVL_Web/sitemap.xml

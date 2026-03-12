@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UniMedVL | Unified Medical Multimodal Understanding & Generation</title>
+<link rel="icon" type="image/jpg" href="./static/images/favicon.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#08090d;
+  --ink-deep:#0b0e18;
+  --paper:#f0ede6;
+  --gold:#c9a84c;
+  --blue:#2563eb;
+  --violet:#7c3aed;
+  --emerald:#059669;
+  --rose:#dc2626;
+  --mono:'JetBrains Mono',monospace;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+html{overflow-x:hidden;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);overflow-x:hidden}
+
+/* ── Skip & Autoplay buttons ── */
+.top-controls{
+  position:fixed;top:24px;right:28px;z-index:9999;
+  display:flex;gap:10px;
+}
+.ctrl-btn{
+  padding:10px 20px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--paper);background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);border-radius:100px;
+  cursor:pointer;backdrop-filter:blur(16px);transition:all .3s;
+  display:flex;align-items:center;gap:6px;
+}
+.ctrl-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3)}
+.ctrl-btn.playing{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.35);color:var(--gold)}
+.ctrl-btn .icon-sym{font-size:13px;line-height:1}
+
+/* Autoplay countdown ring */
+.ap-ring{
+  position:fixed;bottom:32px;left:50%;transform:translateX(-50%);z-index:9998;
+  display:none;align-items:center;gap:12px;
+  padding:10px 24px;border-radius:100px;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.1);
+}
+.ap-ring.show{display:flex}
+.ap-ring svg{width:28px;height:28px;transform:rotate(-90deg)}
+.ap-ring circle{fill:none;stroke-width:2.5;cx:14;cy:14;r:11}
+.ap-ring .track{stroke:rgba(255,255,255,.1)}
+.ap-ring .fill{stroke:var(--gold);stroke-dasharray:69.12;stroke-dashoffset:69.12;transition:stroke-dashoffset .1s linear}
+.ap-ring .ap-text{font:400 11px/1 var(--mono);color:rgba(240,237,230,.5)}
+.ap-ring .ap-slide{font:500 12px/1 var(--sans);color:var(--paper)}
+
+/* ── Progress bar ── */
+.progress-bar{
+  position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--violet),var(--gold));
+  z-index:9998;width:0%;transition:width .15s;
+}
+
+/* ── Nav dots ── */
+.nav-dots{
+  position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:9998;
+  display:flex;flex-direction:column;gap:10px;
+}
+.nav-dots span{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.15);cursor:pointer;transition:all .35s;
+}
+.nav-dots span.active{background:var(--gold);transform:scale(1.5)}
+
+/* ── Slide base ── */
+.slide{
+  min-height:100vh;scroll-snap-align:start;
+  display:flex;align-items:center;justify-content:center;
+  padding:80px 60px;position:relative;overflow:hidden;
+}
+
+/* ── Reveal animations ── */
+.r{opacity:0;transform:translateY(50px);transition:all .8s cubic-bezier(.16,1,.3,1)}
+.r.v{opacity:1;transform:translateY(0)}
+.r.d1{transition-delay:.15s}.r.d2{transition-delay:.3s}.r.d3{transition-delay:.45s}.r.d4{transition-delay:.6s}.r.d5{transition-delay:.75s}
+
+/* ══════════ SLIDE 0: HERO ══════════ */
+.s-hero{
+  flex-direction:column;gap:36px;text-align:center;
+  background:radial-gradient(ellipse 90% 70% at 50% 35%,#10142a,var(--ink));
+}
+.s-hero::before{
+  content:'';position:absolute;inset:-50%;
+  background-image:
+    linear-gradient(rgba(59,130,246,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(59,130,246,.04) 1px,transparent 1px);
+  background-size:80px 80px;
+  animation:gridDrift 20s linear infinite;
+  pointer-events:none;
+}
+@keyframes gridDrift{from{transform:translate(0,0)}to{transform:translate(80px,80px)}}
+.s-hero::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 50%,rgba(59,130,246,.08),transparent 50%),
+              radial-gradient(circle at 70% 40%,rgba(139,92,246,.06),transparent 50%);
+  pointer-events:none;
+}
+
+.hero-title{
+  font:400 clamp(3.2rem,8vw,7rem)/1 var(--serif);
+  position:relative;z-index:1;
+}
+.hero-title em{font-style:italic;background:linear-gradient(135deg,var(--gold),#e8d48b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+.hero-tagline{
+  font:400 clamp(1.2rem,2.5vw,1.6rem)/1.4 var(--serif);
+  max-width:700px;color:rgba(240,237,230,.75);position:relative;z-index:1;
+  font-style:italic;
+}
+
+.hero-sub{
+  font:300 clamp(.9rem,1.6vw,1.05rem)/1.8 var(--sans);
+  max-width:660px;color:rgba(240,237,230,.45);position:relative;z-index:1;
+}
+
+.hero-caps{
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  max-width:700px;position:relative;z-index:1;
+}
+.hc{
+  padding:8px 18px;border-radius:100px;
+  font:400 .8rem/1 var(--sans);color:rgba(240,237,230,.6);
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  transition:all .3s;
+}
+.hc:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.25);color:var(--gold)}
+
+.hero-stats{
+  display:flex;gap:40px;position:relative;z-index:1;
+}
+.hs{text-align:center}
+.hs-v{font:400 2.4rem/1 var(--serif);color:var(--gold)}
+.hs-l{font:400 10px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(240,237,230,.35);margin-top:6px}
+
+.scroll-cue{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;z-index:1;
+}
+.scroll-cue span{font:400 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(240,237,230,.25)}
+.scroll-arrow{width:16px;height:16px;border-right:1.5px solid rgba(240,237,230,.25);border-bottom:1.5px solid rgba(240,237,230,.25);transform:rotate(45deg);animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(6px)}}
+
+/* ══════════ SLIDE 1: THE PROBLEM ══════════ */
+.s-problem{
+  background:var(--ink);flex-direction:column;gap:48px;
+}
+.split{display:flex;gap:48px;max-width:960px;width:100%;align-items:stretch}
+.split-card{
+  flex:1;padding:40px 32px;border-radius:20px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;gap:16px;
+}
+.split-card.broken{
+  background:rgba(244,63,94,.04);border:1px solid rgba(244,63,94,.15);
+}
+.split-card.unified{
+  background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.15);
+}
+.sc-icon{font-size:2.5rem;margin-bottom:4px}
+.sc-title{font:500 1.2rem/1.3 var(--sans)}
+.sc-desc{font:300 .9rem/1.7 var(--sans);color:rgba(240,237,230,.5)}
+.sc-tag{
+  display:inline-flex;align-self:flex-start;padding:5px 14px;border-radius:100px;
+  font:500 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+}
+.split-card.broken .sc-tag{background:rgba(244,63,94,.1);color:var(--rose)}
+.split-card.unified .sc-tag{background:rgba(16,185,129,.1);color:var(--emerald)}
+.vs-badge{
+  align-self:center;display:flex;align-items:center;
+  font:700 1.5rem/1 var(--serif);color:rgba(240,237,230,.15);
+  writing-mode:vertical-lr;
+}
+
+/* ══════════ SLIDE 2: OKA 3 pillars ══════════ */
+.s-oka{
+  background:linear-gradient(180deg,var(--ink),#0b0e18);
+  flex-direction:column;gap:48px;
+}
+.heading{text-align:center;max-width:680px}
+.heading .over{font:500 11px/1 var(--mono);letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block}
+.heading h2{font:400 clamp(2.2rem,5vw,3.6rem)/1.1 var(--serif)}
+.heading p{font:300 1rem/1.7 var(--sans);color:rgba(240,237,230,.45);margin-top:14px}
+
+.pillars{display:flex;gap:20px;max-width:1000px;width:100%}
+.pillar{
+  flex:1;padding:36px 28px;border-radius:18px;
+  background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);
+  transition:all .5s;position:relative;
+}
+.pillar:hover{background:rgba(255,255,255,.05);transform:translateY(-6px);border-color:rgba(255,255,255,.1)}
+.pillar::before{
+  content:'';position:absolute;top:0;left:24px;right:24px;height:2px;border-radius:1px;
+}
+.pillar:nth-child(1)::before{background:linear-gradient(90deg,var(--blue),transparent)}
+.pillar:nth-child(2)::before{background:linear-gradient(90deg,var(--violet),transparent)}
+.pillar:nth-child(3)::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.pillar .p-num{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;display:block}
+.pillar:nth-child(1) .p-num{color:var(--blue)}
+.pillar:nth-child(2) .p-num{color:var(--violet)}
+.pillar:nth-child(3) .p-num{color:var(--gold)}
+.pillar h3{font:500 1.25rem/1.3 var(--sans);margin-bottom:12px}
+.pillar p{font:300 .85rem/1.65 var(--sans);color:rgba(240,237,230,.45)}
+.pillar .p-stat{
+  margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06);
+  font:400 1.8rem/1 var(--serif);color:var(--gold);
+}
+.pillar .p-stat small{font:400 .7rem/1.3 var(--mono);color:rgba(240,237,230,.35);display:block;margin-top:4px}
+
+/* ══════════ SLIDE 3: Architecture ══════════ */
+.s-arch{
+  background:#0b0e18;flex-direction:column;gap:48px;
+}
+.arch-diagram{
+  max-width:800px;width:100%;
+  display:flex;flex-direction:column;gap:16px;
+}
+.arch-row{display:flex;gap:12px;justify-content:center;align-items:center}
+.arch-block{
+  padding:18px 24px;border-radius:12px;text-align:center;
+  font:500 .8rem/1.3 var(--mono);letter-spacing:.03em;
+  transition:all .4s;
+}
+.arch-block:hover{transform:scale(1.05)}
+.ab-vit{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);color:#93c5fd}
+.ab-vae{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd}
+.ab-llm{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:var(--gold);padding:24px 48px;font-size:.9rem}
+.ab-txt{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(240,237,230,.6)}
+.ab-out{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#6ee7b7}
+.arch-arrow{color:rgba(240,237,230,.15);font-size:1.2rem}
+.arch-label{font:300 .75rem/1.4 var(--sans);color:rgba(240,237,230,.3);text-align:center;margin-top:8px}
+.loss-eq{
+  font:400 1.1rem/1 var(--mono);color:var(--gold);text-align:center;
+  padding:16px 32px;border-radius:12px;
+  background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.1);
+  display:inline-block;
+}
+
+/* ══════════ SLIDE 4: Understanding Results ══════════ */
+.s-und{
+  background:linear-gradient(180deg,#0b0e18,#0d1020);
+  flex-direction:column;gap:48px;
+}
+.table-wrap{
+  max-width:900px;width:100%;overflow-x:auto;
+}
+.res-table{
+  width:100%;border-collapse:collapse;
+  font:400 .8rem/1.4 var(--mono);
+}
+.res-table th{
+  padding:12px 16px;text-align:left;
+  font:500 .7rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(240,237,230,.35);border-bottom:1px solid rgba(255,255,255,.08);
+}
+.res-table td{
+  padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.04);
+  color:rgba(240,237,230,.6);
+}
+.res-table tr:last-child{background:rgba(201,168,76,.06)}
+.res-table tr:last-child td{color:var(--gold);font-weight:500}
+.highlight-val{color:var(--gold);font-weight:600}
+
+/* ══════════ SLIDE 5: Generation Results ══════════ */
+.s-gen{
+  background:#0d1020;flex-direction:column;gap:48px;
+}
+.gen-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:800px;width:100%;
+}
+.gen-card{
+  padding:28px 20px;border-radius:14px;text-align:center;
+  background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);
+  transition:all .4s;
+}
+.gen-card:hover{background:rgba(255,255,255,.05);transform:translateY(-4px)}
+.gen-card .gc-mod{font:500 .7rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:rgba(240,237,230,.4);margin-bottom:12px}
+.gen-card .gc-val{font:400 2rem/1 var(--serif);color:var(--gold)}
+.gen-card .gc-label{font:400 .65rem/1.2 var(--mono);color:rgba(240,237,230,.3);margin-top:6px}
+
+/* ══════════ SLIDE 6: Capabilities showcase ══════════ */
+.s-caps{
+  background:linear-gradient(180deg,#0d1020,#0a0d16);
+  flex-direction:column;gap:48px;
+}
+.cap-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:14px;max-width:960px;width:100%;
+}
+.cap-item{
+  padding:24px 16px;border-radius:14px;text-align:center;
+  background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);
+  transition:all .4s;cursor:default;
+}
+.cap-item:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);transform:translateY(-3px)}
+.cap-item .ci-icon{font-size:1.8rem;margin-bottom:10px;display:block}
+.cap-item .ci-name{font:500 .75rem/1.3 var(--sans);color:rgba(240,237,230,.7)}
+.cap-item .ci-type{
+  display:inline-block;margin-top:8px;padding:3px 10px;border-radius:100px;
+  font:500 9px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+}
+.ci-u{background:rgba(59,130,246,.1);color:#93c5fd}
+.ci-g{background:rgba(139,92,246,.1);color:#c4b5fd}
+.ci-i{background:rgba(201,168,76,.1);color:var(--gold)}
+
+/* ══════════ SLIDE 7: Key Insight ══════════ */
+.s-insight{
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,#12162e,var(--ink));
+  flex-direction:column;gap:40px;text-align:center;
+}
+.insight-quote{
+  font:400 clamp(1.5rem,3.5vw,2.5rem)/1.4 var(--serif);
+  max-width:750px;font-style:italic;
+}
+.insight-quote em{color:var(--gold);font-style:italic}
+.insight-evidence{
+  display:flex;gap:32px;flex-wrap:wrap;justify-content:center;
+}
+.ie{
+  padding:20px 28px;border-radius:14px;text-align:center;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+}
+.ie-val{font:400 1.6rem/1 var(--serif);color:var(--gold);margin-bottom:4px}
+.ie-desc{font:400 .7rem/1.3 var(--mono);color:rgba(240,237,230,.35);max-width:140px}
+
+/* ══════════ SLIDE 8: Modalities ══════════ */
+.s-mod{
+  background:var(--ink);flex-direction:column;gap:48px;
+}
+.mod-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:800px;width:100%;
+}
+.mod-card{
+  padding:28px 20px;border-radius:16px;text-align:center;
+  background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);
+  transition:all .4s;
+}
+.mod-card:hover{transform:translateY(-5px);border-color:rgba(201,168,76,.2);background:rgba(201,168,76,.04)}
+.mod-card .mc-emoji{font-size:2rem;margin-bottom:10px;display:block}
+.mod-card .mc-name{font:500 .85rem/1.3 var(--sans)}
+.mod-card .mc-sub{font:400 .7rem/1.3 var(--mono);color:rgba(240,237,230,.35);margin-top:4px}
+
+/* ══════════ SLIDE 9: Efficiency ══════════ */
+.s-eff{
+  background:linear-gradient(180deg,var(--ink),#0b0e18);
+  flex-direction:column;gap:48px;
+}
+.eff-row{display:flex;gap:24px;max-width:800px;width:100%;justify-content:center}
+.eff-card{
+  flex:1;padding:32px 24px;border-radius:16px;text-align:center;
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);
+}
+.eff-card .ef-val{font:400 2.2rem/1 var(--serif);color:var(--gold);margin-bottom:6px}
+.eff-card .ef-label{font:400 .7rem/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:rgba(240,237,230,.4)}
+.eff-card .ef-desc{font:300 .8rem/1.5 var(--sans);color:rgba(240,237,230,.35);margin-top:10px}
+
+/* ══════════ SLIDE 10: ENTER ══════════ */
+.s-enter{
+  min-height:100vh;
+  background:radial-gradient(ellipse 70% 50% at 50% 55%,#141830,var(--ink));
+  flex-direction:column;gap:36px;text-align:center;
+}
+.enter-h{font:400 clamp(2rem,4.5vw,3.2rem)/1.15 var(--serif)}
+.enter-p{font:300 1rem/1.7 var(--sans);color:rgba(240,237,230,.45);max-width:500px}
+.enter-btns{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+.ebtn{
+  padding:18px 52px;border-radius:14px;font:500 1rem/1 var(--sans);
+  text-decoration:none;transition:all .35s;display:flex;align-items:center;gap:10px;
+}
+.ebtn-en{background:var(--gold);color:var(--ink);border:2px solid var(--gold)}
+.ebtn-en:hover{background:transparent;color:var(--gold)}
+.ebtn-zh{background:transparent;color:var(--paper);border:2px solid rgba(255,255,255,.15)}
+.ebtn-zh:hover{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.05)}
+.ebtn .fl{font-size:1.2em}
+
+/* ── Responsive ── */
+@media(max-width:900px){
+  .slide{padding:60px 28px}
+  .pillars,.split{flex-direction:column}
+  .vs-badge{writing-mode:horizontal-tb;margin:8px 0}
+  .cap-grid{grid-template-columns:repeat(3,1fr)}
+  .gen-grid,.mod-grid{grid-template-columns:repeat(2,1fr)}
+  .eff-row{flex-direction:column}
+}
+@media(max-width:600px){
+  .slide{padding:48px 20px}
+  .cap-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-stats{flex-wrap:wrap;gap:24px;justify-content:center}
+  .skip-btn{top:12px;right:14px;padding:8px 14px;font-size:10px}
+  .nav-dots{display:none}
+  .enter-btns{flex-direction:column;align-items:center}
+  .res-table{font-size:.65rem}
+  .res-table th,.res-table td{padding:8px 10px}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="top-controls">
+  <button class="ctrl-btn" id="autoplayBtn" onclick="toggleAutoplay()">
+    <span class="icon-sym" id="apIcon">&#x25B6;</span> <span id="apLabel">Auto Play</span>
+  </button>
+  <button class="ctrl-btn" onclick="document.getElementById('enter').scrollIntoView({behavior:'smooth'})">
+    Skip &#x2192;
+  </button>
+</div>
+
+<div class="ap-ring" id="apRing">
+  <svg><circle class="track"/><circle class="fill" id="apCircle"/></svg>
+  <div>
+    <div class="ap-slide" id="apSlideLabel">1 / 11</div>
+    <div class="ap-text">auto-scrolling</div>
+  </div>
+</div>
+
+<nav class="nav-dots" id="navDots"></nav>
+
+<!-- ═══ 0. HERO ═══ -->
+<section class="slide s-hero" id="s0">
+  <h1 class="hero-title r"><em>UniMedVL</em></h1>
+  <p class="hero-tagline r d1">One Model. Understand &amp; Generate. Across All Medical Imaging.</p>
+  <p class="hero-sub r d2">A single unified architecture that reads medical images, answers clinical questions, writes diagnostic reports, and synthesizes new medical images across 8 modalities. No checkpoint switching. No separate models. One end-to-end system for the full spectrum of medical visual intelligence.</p>
+  <div class="hero-caps r d3">
+    <span class="hc">&#x1F4CB; Report Generation</span>
+    <span class="hc">&#x1F9E0; Clinical Reasoning</span>
+    <span class="hc">&#x1F5BC; Image Synthesis</span>
+    <span class="hc">&#x1F504; Cross-Modal Translation</span>
+    <span class="hc">&#x1F52C; Virtual Staining</span>
+    <span class="hc">&#x1F50D; Super Resolution</span>
+  </div>
+  <div class="hero-stats r d4">
+    <div class="hs"><div class="hs-v">5.6M</div><div class="hs-l">Training Samples</div></div>
+    <div class="hs"><div class="hs-v">14B</div><div class="hs-l">Parameters</div></div>
+    <div class="hs"><div class="hs-v">8</div><div class="hs-l">Imaging Modalities</div></div>
+    <div class="hs"><div class="hs-v">13+</div><div class="hs-l">Eval Benchmarks</div></div>
+  </div>
+  <div class="scroll-cue r d5"><span>Scroll to explore</span><div class="scroll-arrow"></div></div>
+</section>
+
+<!-- ═══ 1. THE PROBLEM ═══ -->
+<section class="slide s-problem" id="s1">
+  <div class="heading r">
+    <span class="over">Motivation</span>
+    <h2>Why Unified Matters</h2>
+  </div>
+  <div class="split">
+    <div class="split-card broken r d1">
+      <div class="sc-icon">&#x1F6AB;</div>
+      <div class="sc-title">Single-Capability Models</div>
+      <div class="sc-desc">Understanding models interpret images but produce no visual outputs. Generation models create images but offer no diagnostic explanations. Separate checkpoints fragment clinical workflows.</div>
+      <span class="sc-tag">Fragmented</span>
+    </div>
+    <div class="vs-badge r d2">VS</div>
+    <div class="split-card unified r d3">
+      <div class="sc-icon">&#x2728;</div>
+      <div class="sc-title">UniMedVL: One Model, All Tasks</div>
+      <div class="sc-desc">Unified understanding and generation within a single architecture. Cross-modal coupling enables mutual enhancement. No checkpoint reloading required between tasks.</div>
+      <span class="sc-tag">Unified</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2. OKA FRAMEWORK ═══ -->
+<section class="slide s-oka" id="s2">
+  <div class="heading r">
+    <span class="over">Framework</span>
+    <h2>Observation-Knowledge-Analysis</h2>
+    <p>A three-level paradigm mirroring how physicians process medical information.</p>
+  </div>
+  <div class="pillars">
+    <div class="pillar r d1">
+      <span class="p-num">01 Observation</span>
+      <h3>UniMed-5M Dataset</h3>
+      <p>Reformatting 30+ diverse single-modal datasets into structured multimodal pairs with rigorous quality control.</p>
+      <div class="p-stat">5.6M<small>multimodal samples</small></div>
+    </div>
+    <div class="pillar r d2">
+      <span class="p-num">02 Knowledge</span>
+      <h3>Progressive Curriculum</h3>
+      <p>Three-stage training: foundation for alignment, instruction tuning for reasoning, unified training for interleaved tasks.</p>
+      <div class="p-stat">3<small>training stages</small></div>
+    </div>
+    <div class="pillar r d3">
+      <span class="p-num">03 Analysis</span>
+      <h3>Unified Architecture</h3>
+      <p>Dual visual encoders with shared self-attention and specialized FFN layers. Joint NTP + rectified flow objectives.</p>
+      <div class="p-stat">14B<small>params (7B active)</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3. ARCHITECTURE ═══ -->
+<section class="slide s-arch" id="s3">
+  <div class="heading r">
+    <span class="over">Architecture</span>
+    <h2>Dual-Encoder Unified Design</h2>
+  </div>
+  <div class="arch-diagram r d1">
+    <div class="arch-row">
+      <div class="arch-block ab-vit">E<sub>VIT</sub><br><small>Understanding Encoder</small></div>
+      <div class="arch-block ab-vae">E<sub>VAE</sub><br><small>Generation Encoder</small></div>
+      <div class="arch-block ab-txt">Text Tokens<br><small>x<sub>text</sub></small></div>
+    </div>
+    <div class="arch-row"><span class="arch-arrow">&#x25BC; &#x25BC; &#x25BC;</span></div>
+    <div class="arch-row">
+      <div class="arch-block ab-llm">Shared Self-Attention + Specialized FFN</div>
+    </div>
+    <div class="arch-row"><span class="arch-arrow">&#x25BC; &#x25BC;</span></div>
+    <div class="arch-row">
+      <div class="arch-block ab-out">Text Output<br><small>Next-Token Prediction</small></div>
+      <div class="arch-block ab-out">Image Output<br><small>Rectified Flow &rarr; D<sub>VAE</sub></small></div>
+    </div>
+  </div>
+  <div class="r d2">
+    <div class="loss-eq">&Lscr;(&theta;) = &Lscr;<sub>NTP</sub> + &Lscr;<sub>flow</sub></div>
+  </div>
+  <p class="arch-label r d3">Joint training exploits cross-modal mutual information: I(T<sub>out</sub>; z<sub>VAE</sub> | C) &ge; 0</p>
+</section>
+
+<!-- ═══ 4. UNDERSTANDING RESULTS ═══ -->
+<section class="slide s-und" id="s4">
+  <div class="heading r">
+    <span class="over">Understanding</span>
+    <h2>Medical VQA Performance</h2>
+    <p>Outperforming specialized models with a unified architecture.</p>
+  </div>
+  <div class="table-wrap r d1">
+    <table class="res-table">
+      <thead><tr><th>Model</th><th>Params</th><th>VQA-RAD</th><th>SLAKE</th><th>PathVQA</th><th>OmniMedVQA</th><th>GMAI-MMB</th></tr></thead>
+      <tbody>
+        <tr><td>LLaVA-Med</td><td>7B</td><td>48.1</td><td>44.8</td><td>35.7</td><td>41.3</td><td>20.54</td></tr>
+        <tr><td>MedGemma-4B</td><td>4B</td><td>67.6</td><td>71.2</td><td>33.7</td><td>68.4</td><td>44.0</td></tr>
+        <tr><td>GMAI-VL</td><td>7B</td><td>66.3</td><td>72.9</td><td>39.8</td><td>88.5</td><td>61.74</td></tr>
+        <tr><td>HealthGPT-L14</td><td>14B</td><td>58.3</td><td>64.5</td><td>44.4</td><td>74.4</td><td>43.1</td></tr>
+        <tr><td>UniMedVL (Ours)</td><td>14B-A7B</td><td class="highlight-val">61.9</td><td class="highlight-val">75.4</td><td class="highlight-val">53.5</td><td class="highlight-val">85.8</td><td class="highlight-val">60.75</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ 5. GENERATION RESULTS ═══ -->
+<section class="slide s-gen" id="s5">
+  <div class="heading r">
+    <span class="over">Generation</span>
+    <h2>Multi-Modality Image Synthesis</h2>
+    <p>Competitive FID scores across 8 medical imaging modalities. BioMedCLIP: 0.706 avg.</p>
+  </div>
+  <div class="gen-grid">
+    <div class="gen-card r"><div class="gc-mod">CFP</div><div class="gc-val">53.2</div><div class="gc-label">gFID</div></div>
+    <div class="gen-card r d1"><div class="gc-mod">CXR</div><div class="gc-val">73.0</div><div class="gc-label">gFID</div></div>
+    <div class="gen-card r d2"><div class="gc-mod">CT</div><div class="gc-val">73.0</div><div class="gc-label">gFID</div></div>
+    <div class="gen-card r d3"><div class="gc-mod">MRI</div><div class="gc-val">90.4</div><div class="gc-label">gFID</div></div>
+    <div class="gen-card r"><div class="gc-mod">OCT</div><div class="gc-val">99.3</div><div class="gc-label">gFID</div></div>
+    <div class="gen-card r d1"><div class="gc-mod">Ultra.</div><div class="gc-val">95.4</div><div class="gc-label">gFID</div></div>
+    <div class="gen-card r d2"><div class="gc-mod">HIS</div><div class="gc-val">149.0</div><div class="gc-label">gFID</div></div>
+    <div class="gen-card r d3"><div class="gc-mod">Endo.</div><div class="gc-val">133.1</div><div class="gc-label">gFID</div></div>
+  </div>
+</section>
+
+<!-- ═══ 6. CAPABILITIES ═══ -->
+<section class="slide s-caps" id="s6">
+  <div class="heading r">
+    <span class="over">Tasks</span>
+    <h2>10 Medical AI Capabilities</h2>
+  </div>
+  <div class="cap-grid">
+    <div class="cap-item r"><span class="ci-icon">&#x1F9E0;</span><span class="ci-name">Clinical Reasoning</span><span class="ci-type ci-u">understand</span></div>
+    <div class="cap-item r d1"><span class="ci-icon">&#x1F3AF;</span><span class="ci-name">Disease Classification</span><span class="ci-type ci-u">understand</span></div>
+    <div class="cap-item r d2"><span class="ci-icon">&#x1F4CB;</span><span class="ci-name">Report Generation</span><span class="ci-type ci-u">understand</span></div>
+    <div class="cap-item r d3"><span class="ci-icon">&#x1F5BC;</span><span class="ci-name">Text-to-Image</span><span class="ci-type ci-g">generate</span></div>
+    <div class="cap-item r d4"><span class="ci-icon">&#x1F4DD;</span><span class="ci-name">Image Captioning</span><span class="ci-type ci-u">understand</span></div>
+    <div class="cap-item r"><span class="ci-icon">&#x1F50D;</span><span class="ci-name">Super Resolution</span><span class="ci-type ci-i">interleaved</span></div>
+    <div class="cap-item r d1"><span class="ci-icon">&#x1F504;</span><span class="ci-name">Cross-Modal Synth.</span><span class="ci-type ci-i">interleaved</span></div>
+    <div class="cap-item r d2"><span class="ci-icon">&#x1F9EA;</span><span class="ci-name">Virtual Staining</span><span class="ci-type ci-i">interleaved</span></div>
+    <div class="cap-item r d3"><span class="ci-icon">&#x1F300;</span><span class="ci-name">Counterfactual Gen.</span><span class="ci-type ci-i">interleaved</span></div>
+    <div class="cap-item r d4"><span class="ci-icon">&#x2702;</span><span class="ci-name">Prompt Segment.</span><span class="ci-type ci-i">interleaved</span></div>
+  </div>
+</section>
+
+<!-- ═══ 7. KEY INSIGHT ═══ -->
+<section class="slide s-insight" id="s7">
+  <div class="heading r">
+    <span class="over">Key Finding</span>
+  </div>
+  <blockquote class="insight-quote r d1">
+    Understanding and generation are <em>not</em> competing objectives. Joint training reduces predictive uncertainty by exploiting <em>cross-modal mutual information</em>.
+  </blockquote>
+  <div class="insight-evidence">
+    <div class="ie r d2"><div class="ie-val">108.4 &rarr; 96.3</div><div class="ie-desc">gFID improvement from joint training</div></div>
+    <div class="ie r d3"><div class="ie-val">+11.4%</div><div class="ie-desc">OmniMedVQA gain vs HealthGPT-L14</div></div>
+    <div class="ie r d4"><div class="ie-val">0.706</div><div class="ie-desc">BioMedCLIP score (best overall)</div></div>
+  </div>
+</section>
+
+<!-- ═══ 8. MODALITIES ═══ -->
+<section class="slide s-mod" id="s8">
+  <div class="heading r">
+    <span class="over">Coverage</span>
+    <h2>8 Medical Imaging Modalities</h2>
+  </div>
+  <div class="mod-grid">
+    <div class="mod-card r"><span class="mc-emoji">&#x1FA7B;</span><div class="mc-name">X-Ray</div><div class="mc-sub">Chest radiographs</div></div>
+    <div class="mod-card r d1"><span class="mc-emoji">&#x1F4A0;</span><div class="mc-name">CT</div><div class="mc-sub">Computed tomography</div></div>
+    <div class="mod-card r d2"><span class="mc-emoji">&#x1F9F2;</span><div class="mc-name">MRI</div><div class="mc-sub">Magnetic resonance</div></div>
+    <div class="mod-card r d3"><span class="mc-emoji">&#x1F4F7;</span><div class="mc-name">Endoscopy</div><div class="mc-sub">Internal imaging</div></div>
+    <div class="mod-card r"><span class="mc-emoji">&#x1F52C;</span><div class="mc-name">Histopathology</div><div class="mc-sub">Tissue analysis</div></div>
+    <div class="mod-card r d1"><span class="mc-emoji">&#x1F441;</span><div class="mc-name">OCT</div><div class="mc-sub">Optical coherence</div></div>
+    <div class="mod-card r d2"><span class="mc-emoji">&#x1F4E1;</span><div class="mc-name">Ultrasound</div><div class="mc-sub">Sonography</div></div>
+    <div class="mod-card r d3"><span class="mc-emoji">&#x1F7E2;</span><div class="mc-name">CFP</div><div class="mc-sub">Retinal fundus</div></div>
+  </div>
+</section>
+
+<!-- ═══ 9. EFFICIENCY ═══ -->
+<section class="slide s-eff" id="s9">
+  <div class="heading r">
+    <span class="over">Efficiency</span>
+    <h2>Compute-Efficient Inference</h2>
+    <p>3.6x fewer FLOPs than BLIP3-o for generation, 4.1x fewer for VQA.</p>
+  </div>
+  <div class="eff-row">
+    <div class="eff-card r d1">
+      <div class="ef-val">40.0</div><div class="ef-label">TFLOPs / Image</div>
+      <div class="ef-desc">vs 142.6 for BLIP3-o (3.6x reduction)</div>
+    </div>
+    <div class="eff-card r d2">
+      <div class="ef-val">25.9</div><div class="ef-label">Tokens/s (VQA)</div>
+      <div class="ef-desc">2x faster than HealthGPT-L14</div>
+    </div>
+    <div class="eff-card r d3">
+      <div class="ef-val">28.4</div><div class="ef-label">GB Peak Memory</div>
+      <div class="ef-desc">Dual-encoder with 14B total params</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10. ENTER ═══ -->
+<section class="slide s-enter" id="enter">
+  <div class="heading r">
+    <span class="over">Explore</span>
+    <h2 class="enter-h">Dive Into the Full Project</h2>
+    <p class="enter-p">Interactive demos, visual comparisons, and comprehensive results await.</p>
+  </div>
+  <div class="enter-btns r d1">
+    <a href="./index.html" class="ebtn ebtn-en"><span class="fl">&#x1F1EC;&#x1F1E7;</span> English</a>
+    <a href="./index_zh.html" class="ebtn ebtn-zh"><span class="fl">&#x1F1E8;&#x1F1F3;</span> 中文</a>
+  </div>
+</section>
+
+<script>
+// Build nav dots
+const slides=document.querySelectorAll('.slide');
+const nav=document.getElementById('navDots');
+slides.forEach((_,i)=>{const s=document.createElement('span');s.dataset.idx=i;nav.appendChild(s)});
+const dots=nav.querySelectorAll('span');
+dots[0].classList.add('active');
+
+// Current slide tracking
+let currentSlide=0;
+const sectionIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const idx=[...slides].indexOf(e.target);
+      if(idx>=0){currentSlide=idx;dots.forEach(d=>d.classList.remove('active'));dots[idx]?.classList.add('active')}
+    }
+  });
+},{threshold:.4});
+slides.forEach(s=>sectionIO.observe(s));
+
+// Scroll progress
+const bar=document.getElementById('progressBar');
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';
+});
+
+// Reveal on intersect
+const revealIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.r').forEach(el=>el.classList.add('v'))}});
+},{threshold:.2});
+slides.forEach(s=>revealIO.observe(s));
+
+// Dot click
+dots.forEach(d=>d.addEventListener('click',()=>{slides[+d.dataset.idx]?.scrollIntoView({behavior:'smooth'})}));
+
+// ══════════ AUTOPLAY (default ON) ══════════
+const SLIDE_DURATION=5000; // 5s per slide
+let apPlaying=false, apTimer=null, apStart=0, apRAF=null;
+const apBtn=document.getElementById('autoplayBtn');
+const apIcon=document.getElementById('apIcon');
+const apLabel=document.getElementById('apLabel');
+const apRing=document.getElementById('apRing');
+const apCircle=document.getElementById('apCircle');
+const apSlideLabel=document.getElementById('apSlideLabel');
+const CIRCUM=2*Math.PI*11; // ~69.12
+
+function toggleAutoplay(){
+  if(apPlaying){stopAutoplay()}else{startAutoplay()}
+}
+
+function startAutoplay(){
+  apPlaying=true;
+  apBtn.classList.add('playing');
+  apIcon.innerHTML='&#x23F8;';
+  apLabel.textContent='Pause';
+  apRing.classList.add('show');
+  if(currentSlide>=slides.length-1){
+    slides[0].scrollIntoView({behavior:'smooth'});
+    currentSlide=0;
+  }
+  scheduleNext();
+}
+
+function stopAutoplay(){
+  apPlaying=false;
+  apBtn.classList.remove('playing');
+  apIcon.innerHTML='&#x25B6;';
+  apLabel.textContent='Auto Play';
+  apRing.classList.remove('show');
+  clearTimeout(apTimer);
+  cancelAnimationFrame(apRAF);
+}
+
+function scheduleNext(){
+  if(!apPlaying)return;
+  apSlideLabel.textContent=(currentSlide+1)+' / '+slides.length;
+  apStart=performance.now();
+  apCircle.style.strokeDasharray=CIRCUM;
+  apCircle.style.strokeDashoffset=CIRCUM;
+  tickRing();
+  apTimer=setTimeout(()=>{
+    if(!apPlaying)return;
+    const next=currentSlide+1;
+    if(next<slides.length){
+      slides[next].scrollIntoView({behavior:'smooth'});
+      currentSlide=next;
+      setTimeout(()=>scheduleNext(),500);
+    }else{
+      fadeAndRedirect('./index.html');
+    }
+  },SLIDE_DURATION);
+}
+
+function tickRing(){
+  if(!apPlaying)return;
+  const elapsed=performance.now()-apStart;
+  const pct=Math.min(elapsed/SLIDE_DURATION,1);
+  apCircle.style.strokeDashoffset=CIRCUM*(1-pct);
+  if(pct<1)apRAF=requestAnimationFrame(tickRing);
+}
+
+// Manual scroll stops autoplay
+window.addEventListener('wheel',()=>{if(apPlaying){stopAutoplay()}},{passive:true});
+window.addEventListener('touchmove',()=>{if(apPlaying){stopAutoplay()}},{passive:true});
+
+// ══════════ FADE TRANSITION ══════════
+function fadeAndRedirect(url){
+  stopAutoplay();
+  const overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;inset:0;z-index:99999;background:var(--ink);opacity:0;transition:opacity 1s ease;pointer-events:all;';
+  document.body.appendChild(overlay);
+  requestAnimationFrame(()=>{
+    overlay.style.opacity='1';
+    setTimeout(()=>{window.location.href=url},1000);
+  });
+}
+
+// Also make last-slide enter buttons fade-transition
+document.querySelectorAll('.ebtn').forEach(btn=>{
+  btn.addEventListener('click',function(e){
+    e.preventDefault();
+    fadeAndRedirect(this.getAttribute('href'));
+  });
+});
+// Auto-start after a brief delay for page load
+setTimeout(()=>startAutoplay(),1500);
+</script>
+</body>
+</html>

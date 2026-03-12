@@ -693,7 +693,7 @@ slides.forEach(s=>revealIO.observe(s));
 dots.forEach(d=>d.addEventListener('click',()=>{slides[+d.dataset.idx]?.scrollIntoView({behavior:'smooth'})}));
 
 // ══════════ AUTOPLAY (default ON) ══════════
-const SLIDE_DURATION=5000; // 5s per slide
+const SLIDE_DURATION=2500; // 2.5s per slide
 let apPlaying=false, apTimer=null, apStart=0, apRAF=null;
 const apBtn=document.getElementById('autoplayBtn');
 const apIcon=document.getElementById('apIcon');

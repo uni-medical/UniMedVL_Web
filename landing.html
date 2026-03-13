@@ -765,6 +765,7 @@ window.addEventListener('touchmove',()=>{if(apPlaying){stopAutoplay()}},{passive
 // ══════════ FADE TRANSITION ══════════
 function fadeAndRedirect(url){
   stopAutoplay();
+  sessionStorage.setItem('landing_seen','1');
   const overlay=document.createElement('div');
   overlay.style.cssText='position:fixed;inset:0;z-index:99999;background:var(--ink);opacity:0;transition:opacity 1s ease;pointer-events:all;';
   document.body.appendChild(overlay);

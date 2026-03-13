@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <script>if(!sessionStorage.getItem('landing_seen')){window.location.replace('./landing.html');}</script>
+  <script>(function(){var p=new URLSearchParams(location.search);if(p.get('ready')){sessionStorage.setItem('landing_seen','1');return;}if(!sessionStorage.getItem('landing_seen')){location.replace('./landing.html');}})();</script>
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DKYYMZDSW"></script>

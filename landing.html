@@ -651,7 +651,7 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);overflow-x
     <p class="enter-p">Interactive demos, visual comparisons, and comprehensive results await.</p>
   </div>
   <div class="enter-btns r d1">
-    <a href="./index.html" class="ebtn ebtn-en"><span class="fl">&#x1F1EC;&#x1F1E7;</span> English</a>
+    <a href="./index.html?ready=1" class="ebtn ebtn-en"><span class="fl">&#x1F1EC;&#x1F1E7;</span> English</a>
     <a href="./index_zh.html" class="ebtn ebtn-zh"><span class="fl">&#x1F1E8;&#x1F1F3;</span> 中文</a>
   </div>
 </section>
@@ -745,7 +745,7 @@ function scheduleNext(){
       currentSlide=next;
       setTimeout(()=>scheduleNext(),500);
     }else{
-      fadeAndRedirect('./index.html');
+      fadeAndRedirect('./index.html?ready=1');
     }
   },SLIDE_DURATION);
 }
